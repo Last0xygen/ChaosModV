@@ -270,6 +270,7 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="Memory\Gravity.h" />
     <ClInclude Include="Memory\Handle.h" />
+    <ClInclude Include="Memory\CHandlingData.h" />
     <ClInclude Include="Memory\Hooks\Hook.h" />
     <ClInclude Include="Memory\Memory.h" />
     <ClInclude Include="Memory\PedModels.h" />

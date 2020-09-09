@@ -213,6 +213,7 @@
     <ClInclude Include="Util\TryParse.h" />
     <ClInclude Include="Util\Player.h" />
     <ClInclude Include="Util\Vehicle.h" />
+    <ClInclude Include="Memory\CHandlingData.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\vendor\minhook\build\VC15\lib\Release\libMinHook.x64.lib" />
