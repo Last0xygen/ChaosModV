@@ -76,8 +76,11 @@ namespace ConfigApp
 
                 if (Info.VERSION != newVersion)
                 {
-                    update_available_label.Visibility = Visibility.Visible;
                     update_available_button.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    update_available_label.Content = "You are on the newest version of the mod!";
                 }
             }
         }
@@ -273,14 +276,23 @@ namespace ConfigApp
             TreeMenuItem weatherParentItem = new TreeMenuItem("Weather");
             TreeMenuItem miscParentItem = new TreeMenuItem("Misc");
 
+            SortedDictionary<string, Tuple<EffectType, EffectCategory>> sortedEffects = new SortedDictionary<string, Tuple<EffectType, EffectCategory>>();
+
             for (EffectType effectType = 0; effectType < EffectType._EFFECT_ENUM_MAX; effectType++)
             {
                 EffectInfo effectInfo = EffectsMap[effectType];
-                string effectName = effectInfo.Name;
-                TreeMenuItem menuItem = new TreeMenuItem(effectName);
-                m_treeMenuItemsMap.Add(effectType, menuItem);
 
-                switch (effectInfo.EffectCategory)
+                sortedEffects.Add(effectInfo.Name, new Tuple<EffectType, EffectCategory>(effectType, effectInfo.EffectCategory));
+            }
+            
+            foreach (var effect in sortedEffects)
+            {
+                Tuple<EffectType, EffectCategory> effectTuple = effect.Value;
+
+                TreeMenuItem menuItem = new TreeMenuItem(effect.Key);
+                m_treeMenuItemsMap.Add(effectTuple.Item1, menuItem);
+
+                switch (effectTuple.Item2)
                 {
                     case EffectCategory.PLAYER:
                         playerParentItem.AddChild(menuItem);
@@ -473,6 +485,11 @@ namespace ConfigApp
         private void contribute_donate_click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://paypal.me/EmrCue");
+        }
+
+        private void contribute_discord_click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://discord.gg/w2tDeKVaF9");
         }
     }
 }

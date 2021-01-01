@@ -13,17 +13,17 @@ static void OnTick()
 	Vector3 playerPos = GET_ENTITY_COORDS(PLAYER_PED_ID(), false);
 
 	static DWORD64 lastTick = 0;
-	DWORD64 curTick = GetTickCount64();
+	DWORD64 curTick = GET_GAME_TIMER();
 
 	if (meteorsAmount <= MAX_METEORS && curTick > lastTick + 200)
 	{
 		lastTick = curTick;
 
-		Vector3 spawnPos;
-		spawnPos.x = playerPos.x + g_random.GetRandomInt(-100, 100);
-		spawnPos.y = playerPos.y + g_random.GetRandomInt(-100, 100);
-		spawnPos.z = playerPos.z + g_random.GetRandomInt(25, 50);
-
+		Vector3 spawnPos = Vector3::Init(
+			playerPos.x + g_random.GetRandomInt(-100, 100),
+			playerPos.y + g_random.GetRandomInt(-100, 100),
+			playerPos.z + g_random.GetRandomInt(25, 50)
+		);
 		Hash choosenPropHash = GET_HASH_KEY(propNames[g_random.GetRandomInt(0, 4)]);
 		LoadModel(choosenPropHash);
 

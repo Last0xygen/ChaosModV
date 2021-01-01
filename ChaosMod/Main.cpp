@@ -150,7 +150,10 @@ void Main::Init()
 		std::vector<EffectType> enabledEffectTypes;
 		for (const auto& pair : g_enabledEffects)
 		{
-			enabledEffectTypes.push_back(pair.first);
+			if (!pair.second.Permanent)
+			{
+				enabledEffectTypes.push_back(pair.first);
+			}
 		}
 
 		m_debugMenu = std::make_unique<DebugMenu>(enabledEffectTypes);
@@ -197,11 +200,11 @@ void Main::MainLoop()
 		if (splashTextTime > 0)
 		{
 			BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
-			ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME("Mod by pongo1231\n\nContributors:\nLucas7yoshi\nyzimroni\nAduentix\nLast0xygen\ndzwdz\nSlothersbee");
+			ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME("Chaos Mod v1.8.2 by pongo1231\n\nSee credits.txt for list of contributors");
 			SET_TEXT_SCALE(.65f, .65f);
 			SET_TEXT_COLOUR(0, 255, 255, 255);
 			SET_TEXT_CENTRE(true);
-			END_TEXT_COMMAND_DISPLAY_TEXT(.2f, .4f, 0);
+			END_TEXT_COMMAND_DISPLAY_TEXT(.2f, .3f, 0);
 
 			splashTextTime -= curTick - lastTick;
 		}
@@ -232,7 +235,7 @@ void Main::MainLoop()
 			}
 		}
 
-		if (m_enableDebugMenu)
+		if (m_enableDebugMenu && !ThreadManager::IsAnyThreadRunningOnStart())
 		{
 			if (m_debugMenu && m_debugMenu->IsVisible())
 			{
@@ -264,6 +267,8 @@ void Main::MainLoop()
 
 void Main::RunEffectLoop()
 {
+	g_mainThread = GetCurrentFiber();
+
 	while (true)
 	{
 		WAIT(0);
@@ -277,41 +282,44 @@ void Main::RunEffectLoop()
 			continue;
 		}
 
-		static bool justReenabled = false;
-		if (m_disableMod)
+		if (!ThreadManager::IsAnyThreadRunningOnStart())
 		{
-			if (!justReenabled)
+			static bool justReenabled = false;
+			if (m_disableMod)
 			{
-				justReenabled = true;
-
-				g_effectDispatcher.reset();
-
-				if (m_enableDebugMenu)
+				if (!justReenabled)
 				{
-					m_debugMenu.reset();
+					justReenabled = true;
+
+					g_effectDispatcher.reset();
+
+					if (m_enableDebugMenu)
+					{
+						m_debugMenu.reset();
+					}
+
+					m_twitchVoting.reset();
+
+					ClearEntityPool();
 				}
 
-				m_twitchVoting.reset();
+				continue;
+			}
+			else if (justReenabled)
+			{
+				justReenabled = false;
+
+				Init(); // Restart the main part of the mod completely
+			}
+
+			if (m_clearAllEffects)
+			{
+				m_clearAllEffects = false;
+
+				g_effectDispatcher->Reset();
 
 				ClearEntityPool();
 			}
-
-			continue;
-		}
-		else if (justReenabled)
-		{
-			justReenabled = false;
-
-			Init(); // Restart the main part of the mod completely
-		}
-
-		if (m_clearAllEffects)
-		{
-			m_clearAllEffects = false;
-
-			g_effectDispatcher->Reset();
-
-			ClearEntityPool();
 		}
 
 		if (m_twitchVoting->IsEnabled())

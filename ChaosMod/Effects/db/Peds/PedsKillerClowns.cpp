@@ -7,7 +7,7 @@
 static std::list<Ped> clownEnemies;
 static int spawnTimer = -1;
 static Hash relationshipGroup;
-static int maxClownsToSpawn = 5;
+static int maxClownsToSpawn = 3;
 
 static Vector3 getRandomOffsetCoord(Vector3 startCoord, int minOffset, int maxOffset)
 {
@@ -15,7 +15,7 @@ static Vector3 getRandomOffsetCoord(Vector3 startCoord, int minOffset, int maxOf
 	randomCoord.z = startCoord.z;
 	float groundZ;
 	for (int i = 0; i < 10; i++) {
-		if (g_random.GetRandomInt(0, 2) % 2 == 0)
+		if (g_random.GetRandomInt(0, 1) % 2 == 0)
 		{
 			randomCoord.x = startCoord.x + g_random.GetRandomInt(minOffset, maxOffset);
 		}
@@ -23,7 +23,7 @@ static Vector3 getRandomOffsetCoord(Vector3 startCoord, int minOffset, int maxOf
 		{
 			randomCoord.x = startCoord.x - g_random.GetRandomInt(minOffset, maxOffset);
 		}
-		if (g_random.GetRandomInt(0, 2) % 2 == 0)
+		if (g_random.GetRandomInt(0, 1) % 2 == 0)
 		{
 			randomCoord.y = startCoord.y + g_random.GetRandomInt(minOffset, maxOffset);
 		}
@@ -41,12 +41,6 @@ static Vector3 getRandomOffsetCoord(Vector3 startCoord, int minOffset, int maxOf
 	return randomCoord;
 }
 
-static void OnStop()
-{
-	ANIMPOSTFX_STOP("DrugsTrevorClownsFightOut");
-	REMOVE_NAMED_PTFX_ASSET("scr_rcbarry2");
-}
-
 static void OnStart()
 {
 	static const Hash playerGroup = GET_HASH_KEY("PLAYER");
@@ -58,16 +52,6 @@ static void OnStart()
 
 static void OnTick()
 {
-	REQUEST_NAMED_PTFX_ASSET("scr_rcbarry2");
-	while (!HAS_NAMED_PTFX_ASSET_LOADED("scr_rcbarry2"))
-	{
-		WAIT(0);
-	}
-	if (!ANIMPOSTFX_IS_RUNNING("DrugsTrevorClownsFightOut"))
-	{
-		ANIMPOSTFX_PLAY("DrugsTrevorClownsFightOut", -1, true);
-	}
-
 	Ped playerPed = PLAYER_PED_ID();
 	Vector3 playerPos = GET_ENTITY_COORDS(playerPed, false);
 	int current_time = GET_GAME_TIMER();
@@ -109,10 +93,10 @@ static void OnTick()
 		SET_PED_RELATIONSHIP_GROUP_HASH(ped, relationshipGroup);
 		SET_PED_HEARING_RANGE(ped, 9999.f);
 		GIVE_WEAPON_TO_PED(ped, weaponHash, 9999, true, true);
-		SET_PED_ACCURACY(ped, 50);
+		SET_PED_ACCURACY(ped, 20);
 		TASK_COMBAT_PED(ped, playerPed, 0, 16);
 		clownEnemies.push_back(ped);
 	}
 }
 
-static RegisterEffect registerEffect(EFFECT_KILLER_CLOWNS, OnStart, OnStop, OnTick);
+static RegisterEffect registerEffect(EFFECT_KILLER_CLOWNS, OnStart, nullptr, OnTick);
