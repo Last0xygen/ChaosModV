@@ -307,6 +307,7 @@
     <ClInclude Include="Memory\Handle.h" />
     <ClInclude Include="Memory\Hooks\EntityCoordsHook.h" />
     <ClInclude Include="Memory\Hooks\HandleToEntityStructHook.h" />
+    <ClInclude Include="Memory\CHandlingData.h" />
     <ClInclude Include="Memory\Hooks\Hook.h" />
     <ClInclude Include="Memory\Memory.h" />
     <ClInclude Include="Memory\PedModels.h" />

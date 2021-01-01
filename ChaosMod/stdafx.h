@@ -12,6 +12,7 @@
 
 #include "Effects/Effect.h"
 
+#include "Memory/CHandlingData.h"
 #include "Memory/Memory.h"
 #include "Memory/Handle.h"
 #include "Memory/Gravity.h"

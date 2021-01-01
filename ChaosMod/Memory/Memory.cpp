@@ -29,6 +29,7 @@ namespace Memory
 		}
 	
 		MH_EnableHook(MH_ALL_HOOKS);
+		InitVehicles();
 	}
 
 	void Uninit()

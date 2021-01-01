@@ -13,6 +13,44 @@ typedef int Vehicle;
 
 namespace Memory
 {
+
+	inline uintptr_t(*GetAddressOfEntity)(int handle);
+	inline int handlingOffset = 0;
+
+	inline void InitVehicles()
+	{
+		// Init Vehicle Handling Methods
+		Handle vehicleAddr = FindPattern("83 F9 FF 74 31 4C 8B 0D ? ? ? ? 44 8B C1 49 8B 41 08");
+		if (vehicleAddr.IsValid())
+		{
+			Handle handlingAddr = FindPattern("3C 03 0F 85 ? ? ? ? 48 8B 41 20 48 8B 88");
+			if (handlingAddr.IsValid())
+			{
+				GetAddressOfEntity = reinterpret_cast<uintptr_t(*)(int)>(vehicleAddr.Addr());
+				handlingOffset = handlingAddr.Addr() == 0 ? 0 : *(int*)(handlingAddr.Addr() + 0x16);
+			}
+		}
+	}
+
+	inline uint8_t* GetAddress(int handle) {
+		return reinterpret_cast<uint8_t*>(GetAddressOfEntity(handle));
+	}
+
+	inline uint64_t GetHandlingPtr(int handle) {
+		if (handlingOffset != 0)
+		{
+			uint8_t* address = GetAddress(handle);
+			if (address)
+			{
+				return *reinterpret_cast<uint64_t*>(address + handlingOffset);
+			}
+		}
+		return 0;
+	}
+
+
+
+
 	inline std::vector<Hash> GetAllVehModels()
 	{
 		static std::vector<Hash> vehModels;
