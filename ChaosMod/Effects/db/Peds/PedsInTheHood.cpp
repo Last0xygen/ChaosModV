@@ -1,21 +1,62 @@
 #include <stdafx.h>
 
+
+//static std::ofstream debugLog("ChaosLog.txt");
+static std::map<Hash, CHandlingData*> processedHandling;
+
+static std::ofstream debugLog("ChaosLog.txt");
+
+static void OnStart()
+{
+	//REMOVE_ANIM_DICT("missfbi3_sniping");
+	debugLog << "Size: " << processedHandling.size() << std::endl;
+
+}
+
+
 static void OnStop()
 {
-	REMOVE_ANIM_DICT("missfbi3_sniping");
+	for (std::pair<Vehicle, CHandlingData*> value : processedHandling)
+	{
+		value.second->fSuspensionRaise_ -= 0.25;
+	}
+	processedHandling.clear();
 }
+
 
 static void OnTick()
 {
-	REQUEST_ANIM_DICT("missfbi3_sniping");
-
-	for (auto ped : GetAllPeds())
+	int count = 20;
+	for (Vehicle veh : GetAllVehs())
 	{
-		if (!IS_PED_A_PLAYER(ped) && !IS_ENTITY_PLAYING_ANIM(ped, "missfbi3_sniping", "dance_m_default", 3))
+		Hash model = GET_ENTITY_MODEL(veh);
+		if (IS_THIS_MODEL_A_CAR(model) || IS_THIS_MODEL_A_QUADBIKE(model))
 		{
-			TASK_PLAY_ANIM(ped, "missfbi3_sniping", "dance_m_default", 4.0f, -4.0f, -1.f, 1, 0.f, false, false, false);
+			if (processedHandling.find(model) == processedHandling.end())
+			{
+				debugLog << "New Car" << std::endl;
+				uint64_t pntr = Memory::GetHandlingPtr(veh);
+				if (pntr == 0)
+					continue;
+				debugLog << "Pointer: " << pntr << std::endl;
+
+				CHandlingData* handlingData = reinterpret_cast<CHandlingData*>(pntr);
+				if (handlingData == nullptr)
+				{
+					debugLog << "Invalid handling" << std::endl;
+					continue;
+				}
+				processedHandling[model] = handlingData;
+				handlingData->fSuspensionRaise_ += 0.25;
+			}
+		}
+		if (--count <= 0)
+		{
+			WAIT(0);
+			count = 50;
 		}
 	}
+
 }
 
-static RegisterEffect registerEffect(EFFECT_IN_THE_HOOD, nullptr, OnStop, OnTick);
+static RegisterEffect registerEffect(EFFECT_IN_THE_HOOD, OnStart, OnStop, OnTick);

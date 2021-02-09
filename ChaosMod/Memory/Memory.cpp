@@ -57,6 +57,7 @@ namespace Memory
 				Write<BYTE>(handle.At(0x8E).Get<BYTE>(), 0x90, 24);
 			}
 		}
+		InitVehicles();
 	}
 
 	void Uninit()
