@@ -328,6 +328,7 @@
     <ClInclude Include="Memory\Entity.h" />
     <ClInclude Include="Memory\Gravity.h" />
     <ClInclude Include="Memory\Handle.h" />
+    <ClInclude Include="Memory\CHandlingData.h" />
     <ClInclude Include="Memory\Hooks\EntityCoordsHook.h" />
     <ClInclude Include="Memory\Hooks\HandleToEntityStructHook.h" />
     <ClInclude Include="Memory\Hooks\Hook.h" />
