@@ -58,6 +58,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>_WINDLL;%(PreprocessorDefinitions);CURL_STATICLIB</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

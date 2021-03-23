@@ -20,15 +20,21 @@ namespace Memory
 	inline void InitVehicles()
 	{
 		// Init Vehicle Handling Methods
-		Handle vehicleAddr = FindPattern("83 F9 FF 74 31 4C 8B 0D ? ? ? ? 44 8B C1 49 8B 41 08");
+		static std::ofstream log("ChaosLog.txt");
+		log << "Starting scan" << std::endl;
+		Handle vehicleAddr = FindPattern("E8 ?? ?? ?? ?? 48 8B D8 48 85 C0 74 2E 48 83 3D");
 		if (vehicleAddr.IsValid())
 		{
+			
+			log << "found veh addr" << std::endl;
+			GetAddressOfEntity = reinterpret_cast<uintptr_t(*)(int)>(*(int*)(vehicleAddr.Addr() + 1) + vehicleAddr.Addr() + 5);
 			Handle handlingAddr = FindPattern("3C 03 0F 85 ? ? ? ? 48 8B 41 20 48 8B 88");
 			if (handlingAddr.IsValid())
 			{
-				GetAddressOfEntity = reinterpret_cast<uintptr_t(*)(int)>(vehicleAddr.Addr());
+				log << "found handling" << std::endl;
 				handlingOffset = handlingAddr.Addr() == 0 ? 0 : *(int*)(handlingAddr.Addr() + 0x16);
 			}
+			log << "Done" << std::endl;
 		}
 	}
 

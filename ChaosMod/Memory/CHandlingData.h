@@ -8,7 +8,7 @@ struct HandlingVector3 {
 
 class CHandlingData {
 public:
-    char pad_0x0000[0x8];					//0x0000 virtual void Function0();
+    char pad_0x0000[0x8];					//0x0000
     char pad_0x0008[0x4];					//0x0008
     float fMass;							//0x000C
     float fInitialDragCoeff;				//0x0010
@@ -22,7 +22,7 @@ public:
     float fPercentSubmerged;				//0x0040
     float fSubmergedRatio_;                 //0x0044
     float fDriveBiasFront;					//0x0048
-    float fDriveBiasRear;					//0x004C // fDriveBiasRear
+    float fDriveBiasRear;					//0x004C
     __int32 nInitialDriveGears;				//0x0050
     float fDriveInertia;					//0x0054
     float fClutchChangeRateScaleUpShift;	//0x0058
