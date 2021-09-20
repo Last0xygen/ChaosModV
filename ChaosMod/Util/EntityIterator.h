@@ -178,50 +178,17 @@ inline std::vector<Entity> GetAllOfEntityType(EReturnedEntityType entityType)
 	return rgEntities;
 }
 
-inline const std::vector<Ped>& GetAllPeds()
+inline const std::vector<Ped> GetAllPeds()
 {
-	static std::vector<Ped> c_rgPeds;
-
-	static int c_ilastFrame = 0;
-	int iCurFrame = GET_FRAME_COUNT();
-	if (c_ilastFrame < iCurFrame)
-	{
-		c_ilastFrame = iCurFrame;
-
-		c_rgPeds = GetAllOfEntityType(EReturnedEntityType::Peds);
-	}
-
-	return c_rgPeds;
+	return GetAllOfEntityType(EReturnedEntityType::Peds);
 }
 
-inline const std::vector<Vehicle>& GetAllVehs()
+inline const std::vector<Vehicle> GetAllVehs()
 {
-	static std::vector<Vehicle> rgVehs;
-
-	static int c_iLastFrame = 0;
-	int iCurFrame = GET_FRAME_COUNT();
-	if (c_iLastFrame < iCurFrame)
-	{
-		c_iLastFrame = iCurFrame;
-
-		rgVehs = GetAllOfEntityType(EReturnedEntityType::Vehs);
-	}
-
-	return rgVehs;
+	return GetAllOfEntityType(EReturnedEntityType::Vehs);
 }
 
-inline const std::vector<Object>& GetAllProps()
+inline const std::vector<Object> GetAllProps()
 {
-	static std::vector<Object> rgProps;
-
-	static int iLastFrame = 0;
-	int iCurFrame = GET_FRAME_COUNT();
-	if (iLastFrame < iCurFrame)
-	{
-		iLastFrame = iCurFrame;
-
-		rgProps = GetAllOfEntityType(EReturnedEntityType::Props);
-	}
-
-	return rgProps;
+	return GetAllOfEntityType(EReturnedEntityType::Props);
 }
