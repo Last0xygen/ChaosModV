@@ -51,6 +51,7 @@ const char* ROULETTE_WORDS[] =
     "PASSWORD",
     "1+4=-2+7",
     "_MATRIX_",
+    "SYNFETIC",
     "{RANDOM}",
     "ROULETTE",
     "PASS1234",
@@ -58,8 +59,7 @@ const char* ROULETTE_WORDS[] =
     "FRANKLIN",
     "MICHAEL_",
     "TREVOR__",
-    "LESTER__",
-    "SYNFETIC"
+    "LESTER__"
 };
 
 const char* WIN_PHRASES[] =

@@ -98,7 +98,7 @@ static RegisterEffect registerEffect4(EFFECT_INVERT_GRAV, OnStartInvert, OnStop,
 		.Id = "invertgravity",
 		.IsTimed = true,
 		.IsShortDuration = true,
-		.IncompatibleWith = { EFFECT_LOW_GRAV, EFFECT_VERY_LOW_GRAV, EFFECT_INSANE_GRAV, EFFECT_SIDEWAYS_GRAVITY }
+		.IncompatibleWith = { EFFECT_LOW_GRAV, EFFECT_VERY_LOW_GRAV, EFFECT_INSANE_GRAV, EFFECT_SIDEWAYS_GRAVITY, EFFECT_CHANGING_GRAVITY }
 	}
 );
 
@@ -180,12 +180,12 @@ static void OnTickChanging()
 	}
 }
 
-static RegisterEffect registerEffect5(EFFECT_CHANGING_GRAVITY, nullptr, OnStop, OnTickChanging, EffectInfo
+static RegisterEffect registerEffectChanging(EFFECT_CHANGING_GRAVITY, nullptr, OnStop, OnTickChanging, EffectInfo
 	{
 		.Name = "Changing Gravity",
 		.Id = "changinggravity",
 		.IsTimed = true,
 		.IsShortDuration = true,
-		.IncompatibleWith = { EFFECT_LOW_GRAV, EFFECT_VERY_LOW_GRAV, EFFECT_INSANE_GRAV, effec EFFECT_INVERT_GRAV, EFFECT_SIDEWAYS_GRAVITY }
+		.IncompatibleWith = { EFFECT_LOW_GRAV, EFFECT_VERY_LOW_GRAV, EFFECT_INSANE_GRAV, EFFECT_INVERT_GRAV, EFFECT_SIDEWAYS_GRAVITY }
 	}
 );

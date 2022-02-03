@@ -49,12 +49,13 @@ static void OnStart()
 		WAIT(0);
 	}
 
+	GIVE_WEAPON_TO_PED(playerPed, GET_HASH_KEY("WEAPON_PARACHUTE"), 9999, true, true);
 	SET_ENTITY_INVINCIBLE(playerPed, false);
 }
 
 static RegisterEffect registerEffect(EFFECT_PLAYER_ROCKET, OnStart, EffectInfo
 	{
-		.Name = "Rocket Man Forgot His Parachute",
+		.Name = "Rocket Man",
 		.Id = "player_rocket"
 	}
 );
