@@ -11,7 +11,8 @@ static void OnTick()
 
 	for (Ped ped : GetAllPeds())
 	{
-		if (ped != player) {
+		if (ped != player)
+		{
 			entities.push_back(ped);
 		}
 	}
@@ -32,7 +33,7 @@ static void OnTick()
 	Vector3 playerCoord = GET_ENTITY_COORDS(player, false);
 	for (Entity entity : entities)
 	{
-		static float startDistance = 15;
+		static float startDistance = 40;
 		static float maxForceDistance = 10;
 		static float maxForce = 100;
 		Vector3 entityCoord = GET_ENTITY_COORDS(entity, false);
@@ -52,7 +53,7 @@ static void OnTick()
 
 static RegisterEffect registerEffect(EFFECT_PLAYER_FORCEFIELD, nullptr, nullptr, OnTick, EffectInfo
 	{
-		.Name = "Forcefield",
+		.Name = "White Hole",
 		.Id = "player_forcefield",
 		.IsTimed = true,
 		.IsShortDuration = true
