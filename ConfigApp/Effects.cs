@@ -363,6 +363,7 @@ namespace ConfigApp
             EFFECT_MISC_SHRINKCAM,
             EFFECT_PLAYER_KEEPVEL,
             EFFECT_MISC_HYPERACCEL,
+            EFFECT_PEDS_LAST_SUPPER,
             _EFFECT_ENUM_MAX
         }
 
@@ -690,6 +691,7 @@ namespace ConfigApp
             {EffectType.EFFECT_MISC_SHRINKCAM, new EffectInfo("Shrinking Camera", EffectCategory.MISC, "misc_shrinkcam", true, true)},
             {EffectType.EFFECT_MISC_HYPERACCEL, new EffectInfo("Hyper Acceleration", EffectCategory.MISC, "misc_hyperaccel", true)},
             {EffectType.EFFECT_PLAYER_KEEPVEL, new EffectInfo("Keep Velocity", EffectCategory.PLAYER, "player_keepvel", true, true)},
+            {EffectType.EFFECT_PEDS_LAST_SUPPER, new EffectInfo("Last Supper", EffectCategory.PEDS, "peds_last_supper")},
         };
     }
 }
