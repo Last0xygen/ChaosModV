@@ -87,16 +87,16 @@ static void OnTick()
 				if (weaponType <= 5)
 				{
 					GIVE_WEAPON_TO_PED(ped, GET_HASH_KEY("WEAPON_ASSAULTRIFLE"), 9999, true, true);
-				}
-				if (weaponType <= 8 && weaponType >= 6)
+				} 
+				else if (weaponType <= 8)
 				{
 					GIVE_WEAPON_TO_PED(ped, GET_HASH_KEY("WEAPON_ASSAULTSHOTGUN"), 9999, true, true);
 				}
-				if (weaponType == 9)
+				else if (weaponType == 9)
 				{
 					GIVE_WEAPON_TO_PED(ped, GET_HASH_KEY("WEAPON_HEAVYSNIPER"), 9999, true, true);
 				}
-				if (weaponType == 10)
+				else
 				{
 					GIVE_WEAPON_TO_PED(ped, GET_HASH_KEY("WEAPON_STUNGUN"), 9999, true, true);
 				}

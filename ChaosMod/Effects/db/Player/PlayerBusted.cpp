@@ -1,6 +1,7 @@
 #include <stdafx.h>
 
 static bool isActive = false;
+static bool needsTeleport = true;
 
 static void BarFrame()
 {
@@ -20,6 +21,7 @@ static void BarFrame()
 static void OnStart()
 {
 	isActive = false;
+	needsTeleport = true;
 }
 
 static void OnTick()
@@ -59,7 +61,10 @@ static void OnTick()
 		if (isStarted)
 		{
 			BarFrame();
-			TeleportPlayer(436.491f, -982.172f, 30.699f);
+			if (needsTeleport) {
+				TeleportPlayer(436.491f, -982.172f, 30.699f);
+				needsTeleport = false;
+			}
 		}
 	}
 }

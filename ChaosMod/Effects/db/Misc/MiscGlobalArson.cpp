@@ -15,14 +15,19 @@ static void OnTick()
 
 	for (Ped ped : GetAllPeds())
 	{
-		Vehicle pedVeh = GET_VEHICLE_PED_IS_IN(ped, false);
-		if (!IS_PED_A_PLAYER(ped) && !IS_ENTITY_ON_FIRE(ped) && !IS_PED_IN_ANY_VEHICLE(ped, false))
-		{
-			START_ENTITY_FIRE(ped);
+		if (IS_PED_A_PLAYER(ped)) {
+			continue;
 		}
-		else if (IS_PED_IN_ANY_VEHICLE(ped, false) && !IS_PED_A_PLAYER(ped) && !IS_PED_IN_VEHICLE(ped, playerVeh, false))
+		if (!IS_ENTITY_ON_FIRE(ped))
 		{
-			SET_PED_TO_RAGDOLL(ped, 500, 500, 0, true, true, false);
+			if (!IS_PED_IN_ANY_VEHICLE(ped, false))
+			{
+				START_ENTITY_FIRE(ped);
+			}
+			else if (!IS_PED_IN_VEHICLE(ped, playerVeh, false))
+			{
+				SET_PED_TO_RAGDOLL(ped, 500, 500, 0, true, true, false);
+			}
 		}
 	}
 }
