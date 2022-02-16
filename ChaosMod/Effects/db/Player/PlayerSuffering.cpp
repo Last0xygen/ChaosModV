@@ -1,10 +1,5 @@
 #include <stdafx.h>
 
-static void OnStart()
-{
-	currentHealth = -1;
-}
-
 static void OnTick()
 {
 	DRAW_RECT(.5f, .5f, 1.f, 1.f, 150, 0, 0, 100, false);
@@ -33,7 +28,7 @@ static void OnStop()
 	SET_PLAYER_INVINCIBLE(PLAYER_ID(), false);
 }
 
-static RegisterEffect registerEffect(EFFECT_PLAYER_SUFFER, OnStart, OnStop, OnTick, EffectInfo
+static RegisterEffect registerEffect(EFFECT_PLAYER_SUFFER, nullptr, OnStop, OnTick, EffectInfo
 	{
 		.Name = "Suffering",
 		.Id = "player_suffer",
