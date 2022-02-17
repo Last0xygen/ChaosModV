@@ -364,6 +364,7 @@ namespace ConfigApp
             EFFECT_PLAYER_KEEPVEL,
             EFFECT_MISC_HYPERACCEL,
             EFFECT_PEDS_LAST_SUPPER,
+            EFFECT_PEDS_PROP_HUNT,
             _EFFECT_ENUM_MAX
         }
 
@@ -692,6 +693,7 @@ namespace ConfigApp
             {EffectType.EFFECT_MISC_HYPERACCEL, new EffectInfo("Hyper Acceleration", EffectCategory.MISC, "misc_hyperaccel", true)},
             {EffectType.EFFECT_PLAYER_KEEPVEL, new EffectInfo("Keep Velocity", EffectCategory.PLAYER, "player_keepvel", true, true)},
             {EffectType.EFFECT_PEDS_LAST_SUPPER, new EffectInfo("Last Supper", EffectCategory.PEDS, "peds_last_supper")},
+            {EffectType.EFFECT_PEDS_PROP_HUNT, new EffectInfo("Prop Hunt", EffectCategory.PEDS, "peds_prop_hunt", true)},
         };
     }
 }
