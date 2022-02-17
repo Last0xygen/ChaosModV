@@ -229,6 +229,7 @@
     <ClCompile Include="Effects\db\Misc\MiscNewsTeam.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscGetTowed.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscOrbitCamera.cpp" />
+    <ClCompile Include="Effects\db\Misc\MiscBigBang.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscWhaleRain.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsAimbot.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsAttackPlayer.cpp" />
