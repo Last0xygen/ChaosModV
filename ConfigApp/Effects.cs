@@ -370,6 +370,7 @@ namespace ConfigApp
             EFFECT_PEDS_GRAPPLE_GUNS,
             EFFECT_SPINNING_PROPS,
             EFFECT_MISC_PED_RAIN,
+            EFFECT_MISC_ORBIT_CAMERA,
             _EFFECT_ENUM_MAX
         }
 
@@ -704,6 +705,7 @@ namespace ConfigApp
             {EffectType.EFFECT_PEDS_GRAPPLE_GUNS, new EffectInfo("Gravity Guns", EffectCategory.PEDS, "peds_grapple_guns", true)},
             {EffectType.EFFECT_SPINNING_PROPS, new EffectInfo("Spinning Props", EffectCategory.MISC, "misc_spinning_props", true)},
             {EffectType.EFFECT_MISC_PED_RAIN, new EffectInfo("It's Raining Men", EffectCategory.MISC, "misc_ped_rain", true)},
+            {EffectType.EFFECT_MISC_ORBIT_CAMERA, new EffectInfo("Orbit Camera", EffectCategory.MISC, "misc_orbit_camera", true, true)},
         };
     }
 }
