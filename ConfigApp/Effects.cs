@@ -371,6 +371,7 @@ namespace ConfigApp
             EFFECT_SPINNING_PROPS,
             EFFECT_MISC_PED_RAIN,
             EFFECT_MISC_ORBIT_CAMERA,
+            EFFECT_PLAYER_GUN_GAME,
             _EFFECT_ENUM_MAX
         }
 
@@ -706,6 +707,7 @@ namespace ConfigApp
             {EffectType.EFFECT_SPINNING_PROPS, new EffectInfo("Spinning Props", EffectCategory.MISC, "misc_spinning_props", true)},
             {EffectType.EFFECT_MISC_PED_RAIN, new EffectInfo("It's Raining Men", EffectCategory.MISC, "misc_ped_rain", true)},
             {EffectType.EFFECT_MISC_ORBIT_CAMERA, new EffectInfo("Orbit Camera", EffectCategory.MISC, "misc_orbit_camera", true, true)},
+            {EffectType.EFFECT_PLAYER_GUN_GAME, new EffectInfo("Gun Game", EffectCategory.PLAYER, "player_gun_game", true)},
         };
     }
 }

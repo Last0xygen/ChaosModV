@@ -35,7 +35,6 @@ namespace EffectConfig
 		{
 			EEffectType effectType = static_cast<EEffectType>(i);
 			const EffectInfo& effectInfo = g_dictEffectsMap.at(effectType);
-			LOG(effectInfo.Name);
 
 			// Default EffectData values
 			// Enabled, TimedType, CustomTime (-1 = Disabled), Weight, Permanent, ExcludedFromVoting, "Dummy for name-override", Shortcut
