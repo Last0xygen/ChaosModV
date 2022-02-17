@@ -368,6 +368,7 @@ namespace ConfigApp
             EFFECT_VEHS_TINY,
             EFFECT_VEHS_WIGGLE_CHANGES_SIZE,
             EFFECT_PEDS_GRAPPLE_GUNS,
+            EFFECT_SPINNING_PROPS,
             _EFFECT_ENUM_MAX
         }
 
@@ -700,6 +701,7 @@ namespace ConfigApp
             {EffectType.EFFECT_VEHS_TINY, new EffectInfo("Tiny Vehicles", EffectCategory.VEHICLE, "vehs_tiny", true)},
             {EffectType.EFFECT_VEHS_WIGGLE_CHANGES_SIZE, new EffectInfo("Wiggle-Wiggle", EffectCategory.VEHICLE, "veh_wiggle_changes_size", true)},
             {EffectType.EFFECT_PEDS_GRAPPLE_GUNS, new EffectInfo("Gravity Guns", EffectCategory.PEDS, "peds_grapple_guns", true)},
+            {EffectType.EFFECT_SPINNING_PROPS, new EffectInfo("Spinning Props", EffectCategory.MISC, "misc_spinning_props", true)},
         };
     }
 }
