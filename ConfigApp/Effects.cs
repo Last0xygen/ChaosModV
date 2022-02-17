@@ -365,6 +365,7 @@ namespace ConfigApp
             EFFECT_MISC_HYPERACCEL,
             EFFECT_PEDS_LAST_SUPPER,
             EFFECT_PEDS_PROP_HUNT,
+            EFFECT_VEHS_TINY,
             _EFFECT_ENUM_MAX
         }
 
@@ -694,6 +695,7 @@ namespace ConfigApp
             {EffectType.EFFECT_PLAYER_KEEPVEL, new EffectInfo("Keep Velocity", EffectCategory.PLAYER, "player_keepvel", true, true)},
             {EffectType.EFFECT_PEDS_LAST_SUPPER, new EffectInfo("Last Supper", EffectCategory.PEDS, "peds_last_supper")},
             {EffectType.EFFECT_PEDS_PROP_HUNT, new EffectInfo("Prop Hunt", EffectCategory.PEDS, "peds_prop_hunt", true)},
+            {EffectType.EFFECT_VEHS_TINY, new EffectInfo("Tiny Vehicles", EffectCategory.VEHICLE, "vehs_tiny", true)},
         };
     }
 }
