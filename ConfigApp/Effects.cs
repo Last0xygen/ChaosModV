@@ -366,6 +366,7 @@ namespace ConfigApp
             EFFECT_PEDS_LAST_SUPPER,
             EFFECT_PEDS_PROP_HUNT,
             EFFECT_VEHS_TINY,
+            EFFECT_VEHS_WIGGLE_CHANGES_SIZE,
             _EFFECT_ENUM_MAX
         }
 
@@ -696,6 +697,7 @@ namespace ConfigApp
             {EffectType.EFFECT_PEDS_LAST_SUPPER, new EffectInfo("Last Supper", EffectCategory.PEDS, "peds_last_supper")},
             {EffectType.EFFECT_PEDS_PROP_HUNT, new EffectInfo("Prop Hunt", EffectCategory.PEDS, "peds_prop_hunt", true)},
             {EffectType.EFFECT_VEHS_TINY, new EffectInfo("Tiny Vehicles", EffectCategory.VEHICLE, "vehs_tiny", true)},
+            {EffectType.EFFECT_VEHS_WIGGLE_CHANGES_SIZE, new EffectInfo("Wiggle-Wiggle", EffectCategory.VEHICLE, "veh_wiggle_changes_size", true)},
         };
     }
 }
