@@ -369,6 +369,7 @@ namespace ConfigApp
             EFFECT_VEHS_WIGGLE_CHANGES_SIZE,
             EFFECT_PEDS_GRAPPLE_GUNS,
             EFFECT_SPINNING_PROPS,
+            EFFECT_MISC_PED_RAIN,
             _EFFECT_ENUM_MAX
         }
 
@@ -702,6 +703,7 @@ namespace ConfigApp
             {EffectType.EFFECT_VEHS_WIGGLE_CHANGES_SIZE, new EffectInfo("Wiggle-Wiggle", EffectCategory.VEHICLE, "veh_wiggle_changes_size", true)},
             {EffectType.EFFECT_PEDS_GRAPPLE_GUNS, new EffectInfo("Gravity Guns", EffectCategory.PEDS, "peds_grapple_guns", true)},
             {EffectType.EFFECT_SPINNING_PROPS, new EffectInfo("Spinning Props", EffectCategory.MISC, "misc_spinning_props", true)},
+            {EffectType.EFFECT_MISC_PED_RAIN, new EffectInfo("It's Raining Men", EffectCategory.MISC, "misc_ped_rain", true)},
         };
     }
 }
