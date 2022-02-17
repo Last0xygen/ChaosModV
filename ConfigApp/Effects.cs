@@ -367,6 +367,7 @@ namespace ConfigApp
             EFFECT_PEDS_PROP_HUNT,
             EFFECT_VEHS_TINY,
             EFFECT_VEHS_WIGGLE_CHANGES_SIZE,
+            EFFECT_PEDS_GRAPPLE_GUNS,
             _EFFECT_ENUM_MAX
         }
 
@@ -698,6 +699,7 @@ namespace ConfigApp
             {EffectType.EFFECT_PEDS_PROP_HUNT, new EffectInfo("Prop Hunt", EffectCategory.PEDS, "peds_prop_hunt", true)},
             {EffectType.EFFECT_VEHS_TINY, new EffectInfo("Tiny Vehicles", EffectCategory.VEHICLE, "vehs_tiny", true)},
             {EffectType.EFFECT_VEHS_WIGGLE_CHANGES_SIZE, new EffectInfo("Wiggle-Wiggle", EffectCategory.VEHICLE, "veh_wiggle_changes_size", true)},
+            {EffectType.EFFECT_PEDS_GRAPPLE_GUNS, new EffectInfo("Gravity Guns", EffectCategory.PEDS, "peds_grapple_guns", true)},
         };
     }
 }
