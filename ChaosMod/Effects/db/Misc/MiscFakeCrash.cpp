@@ -56,7 +56,7 @@ static void OnStart()
 
 	WAIT(500);
 
-	SleepAllThreads(g_Random.GetRandomInt(10000, 20000));
+	SleepAllThreads(g_Random.GetRandomInt(5000, 10000));
 
 	if (fakeTimer)
 	{
@@ -66,7 +66,7 @@ static void OnStart()
 
 static RegisterEffect registerEffect(EFFECT_MISC_CRASH, OnStart, EffectInfo
 	{
-		.Name = "Almost Fake Crash",
+		.Name = "Fake Crash",
 		.Id = "misc_fakecrash"
 	}
 );

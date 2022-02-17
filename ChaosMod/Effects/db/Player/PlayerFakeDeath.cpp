@@ -12,6 +12,7 @@ static const char* ms_rgTextPairs[] =
 	"~g~(No you're fine)",
 	"Did this scare you?",
 	"~r~FISSION MAILED",
+	"Vodka Catastrophe anyone? Kappa",
 	"ded"
 };
 
