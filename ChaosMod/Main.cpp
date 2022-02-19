@@ -287,6 +287,15 @@ namespace Main
 			{
 				ms_bDisableMod = !ms_bDisableMod;
 			}
+			else if (ulKey == 0x49) // I
+			{
+				DO_SCREEN_FADE_IN(0);
+				SET_GAME_PAUSED(false);
+			}
+			else if (ulKey == 0x4F) // O
+			{
+				DO_SCREEN_FADE_OUT(0);
+			}
 		}
 
 		if (ms_pDebugMenu)
