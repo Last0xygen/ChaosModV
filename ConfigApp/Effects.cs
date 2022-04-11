@@ -365,7 +365,6 @@ namespace ConfigApp
             EFFECT_MISC_HYPERACCEL,
             EFFECT_PEDS_LAST_SUPPER,
             EFFECT_PEDS_PROP_HUNT,
-            EFFECT_VEHS_TINY,
             EFFECT_VEHS_WIGGLE_CHANGES_SIZE,
             EFFECT_PEDS_GRAPPLE_GUNS,
             EFFECT_SPINNING_PROPS,
@@ -373,6 +372,8 @@ namespace ConfigApp
             EFFECT_MISC_ORBIT_CAMERA,
             EFFECT_PLAYER_GUN_GAME,
             EFFECT_MISC_BIG_BANG,
+            EFFECT_VEHS_PROP_MODELS,
+            EFFECT_VEHS_TINY,
             _EFFECT_ENUM_MAX
         }
 
@@ -702,7 +703,6 @@ namespace ConfigApp
             {EffectType.EFFECT_PLAYER_KEEPVEL, new EffectInfo("Keep Velocity", EffectCategory.PLAYER, "player_keepvel", true, true)},
             {EffectType.EFFECT_PEDS_LAST_SUPPER, new EffectInfo("Last Supper", EffectCategory.PEDS, "peds_last_supper")},
             {EffectType.EFFECT_PEDS_PROP_HUNT, new EffectInfo("Prop Hunt", EffectCategory.PEDS, "peds_prop_hunt", true)},
-            {EffectType.EFFECT_VEHS_TINY, new EffectInfo("Tiny Vehicles", EffectCategory.VEHICLE, "vehs_tiny", true)},
             {EffectType.EFFECT_VEHS_WIGGLE_CHANGES_SIZE, new EffectInfo("Wiggle-Wiggle", EffectCategory.VEHICLE, "veh_wiggle_changes_size", true)},
             {EffectType.EFFECT_PEDS_GRAPPLE_GUNS, new EffectInfo("Gravity Guns", EffectCategory.PEDS, "peds_grapple_guns", true)},
             {EffectType.EFFECT_SPINNING_PROPS, new EffectInfo("Spinning Props", EffectCategory.MISC, "misc_spinning_props", true)},
@@ -710,6 +710,8 @@ namespace ConfigApp
             {EffectType.EFFECT_MISC_ORBIT_CAMERA, new EffectInfo("Orbit Camera", EffectCategory.MISC, "misc_orbit_camera", true, true)},
             {EffectType.EFFECT_PLAYER_GUN_GAME, new EffectInfo("Gun Game", EffectCategory.PLAYER, "player_gun_game", true)},
             {EffectType.EFFECT_MISC_BIG_BANG, new EffectInfo("Big Bang", EffectCategory.MISC, "misc_big_bang")},
+            {EffectType.EFFECT_VEHS_PROP_MODELS, new EffectInfo("Prop Cars", EffectCategory.VEHICLE, "vehs_prop_models", true)},
+            {EffectType.EFFECT_VEHS_TINY, new EffectInfo("Tiny Vehicles", EffectCategory.VEHICLE, "vehs_tiny", true)},
         };
     }
 }
