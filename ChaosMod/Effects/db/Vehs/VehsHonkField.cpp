@@ -38,7 +38,7 @@ static void OnTick()
 						{
 							SET_PED_TO_RAGDOLL(entity, 2000, 2000, 0, true, true, false);
 						}
-						APPLY_FORCE_TO_ENTITY(entity, 3, entityCoord.x - pedCoord.x, entityCoord.y - pedCoord.y, entityCoord.z - pedCoord.z, 0, 0, 0, false, false, true, true, false, true);
+						Memory::ApplyForceToEntity(entity, 3, entityCoord.x - pedCoord.x, entityCoord.y - pedCoord.y, entityCoord.z - pedCoord.z, 0, 0, 0, false, false, true, true, false, true);
 					}
 				}
 			}

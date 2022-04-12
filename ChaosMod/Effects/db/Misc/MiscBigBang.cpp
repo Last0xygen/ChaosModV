@@ -90,7 +90,7 @@ static void OnStart()
 		if (GET_DISTANCE_BETWEEN_COORDS(entityCoord.x, entityCoord.y, entityCoord.z, playerPos.x, playerPos.y, playerPos.z, true) <= 20)
 		{
 			Vector3 forceVec = (entityCoord - playerPos) * 400;
-			APPLY_FORCE_TO_ENTITY(entity, 1, forceVec.x, forceVec.y, forceVec.z, 0, 0, 0, 0, false, false, true, false, true);
+			Memory::ApplyForceToEntity(entity, 1, forceVec.x, forceVec.y, forceVec.z, 0, 0, 0, 0, false, false, true, false, true);
 
 		}
 	}
