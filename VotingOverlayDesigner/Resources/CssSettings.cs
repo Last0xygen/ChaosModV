@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,30 +13,45 @@ namespace VotingOverlayDesigner.Resources
     {
 
         private string textFontFamily = "Arial";
-        private string textColor = "#ffffff";
+        private Color textColor = Color.White;
         private int textFontWeight = 600;
-        private string textOutlineColor = "#000000";
+        private Color textOutlineColor = Color.Black;
         private float textOutlineThickness = 1.3f;
         private int textSize = 22;
 
-        private string barBackgroundDisabledColor = "#afafaf";
-        private string barBackgroundColor = "#727272";
+        private Color barBackgroundDisabledColor;
+        private Color barBackgroundColor;
         private string barFontSize = "14";
         private string barFontWeight = "600";
         private string barFont = "Arial";
         private string barHeight = "35";
         private string barWidth = "450";
         private int barBorderRadius = 0;
-        private string barTextColorDisabled = "#f3f3f3";
-        private string barTextColor = "#f1f1f1";
-        private string barTextOutlineColor = "#000000";
+        private Color barTextColorDisabled;
+        private Color barTextColor;
+        private Color barTextOutlineColor = Color.White;
         private int barTextOutlineThickness = 0;
-        private string barBorderColor = "#00B4FFf0";
+        private Color barBorderColor;
         private bool barBorderEnabled = false;
 
-        private string barProgressionDisabledColor = "#8d8d8d";
-        private string barProgressionColor = "#238beb";
+        private Color barProgressionDisabledColor;
+        private Color barProgressionColor;
         private int barProgressionBorderRadius = 0;
+
+        internal CssSettings()
+        {
+            ColorConverter converter = new ColorConverter();
+            this.barBackgroundDisabledColor = (Color)converter.ConvertFromString("#afafaf");
+
+            this.barBackgroundColor = (Color)converter.ConvertFromString("#727272");
+            this.barTextColorDisabled = (Color)converter.ConvertFromString("#f3f3f3");
+            this.barTextColor = (Color)converter.ConvertFromString("#f1f1f1");
+            this.barBorderColor = (Color)converter.ConvertFromString("#00B4FFf0");
+            this.barProgressionDisabledColor = (Color)converter.ConvertFromString("#8d8d8d");
+            this.barProgressionColor = (Color)converter.ConvertFromString("#238beb");
+        }
+
+
 
 
         #region Total Votes
@@ -48,7 +64,7 @@ namespace VotingOverlayDesigner.Resources
         }
 
         [CategoryAttribute("Total Votes Text Settings"), DescriptionAttribute("The color to use for the text")]
-        public string TextColor
+        public Color TextColor
         {
             get { return textColor; }
             set { textColor = value; }
@@ -62,7 +78,7 @@ namespace VotingOverlayDesigner.Resources
         }
 
         [CategoryAttribute("Total Votes Text Settings"), DescriptionAttribute("The color to use for the text outline")]
-        public string TextOutlineColor
+        public Color TextOutlineColor
         {
             get { return textOutlineColor; }
             set { textOutlineColor = value; }
@@ -87,14 +103,14 @@ namespace VotingOverlayDesigner.Resources
         #region Bar
 
         [CategoryAttribute("Bar Settings"), DescriptionAttribute("The color to use for a disabled bar")]
-        public string BarBackgroundDisabledColor
+        public Color BarBackgroundDisabledColor
         {
             get { return barBackgroundDisabledColor; }
             set { barBackgroundDisabledColor = value; }
         }
 
         [CategoryAttribute("Bar Settings"), DescriptionAttribute("The color to use for the bar background")]
-        public string BarBackgroundColor
+        public Color BarBackgroundColor
         {
             get { return barBackgroundColor; }
             set { barBackgroundColor = value; }
@@ -143,21 +159,21 @@ namespace VotingOverlayDesigner.Resources
         }
 
         [CategoryAttribute("Bar Settings"), DescriptionAttribute("The text color if bar is disabled")]
-        public string BarTextColorDisabled
+        public Color BarTextColorDisabled
         {
             get { return barTextColorDisabled; }
             set { barTextColorDisabled = value; }
         }
 
         [CategoryAttribute("Bar Settings"), DescriptionAttribute("The text color within the bars")]
-        public string BarTextColor
+        public Color BarTextColor
         {
             get { return barTextColor; }
             set { barTextColor = value; }
         }
 
         [CategoryAttribute("Bar Settings"), DescriptionAttribute("The outline color for text within the bars")]
-        public string BarTextOutlineColor
+        public Color BarTextOutlineColor
         {
             get { return barTextOutlineColor; }
             set { barTextOutlineColor = value; }
@@ -171,7 +187,7 @@ namespace VotingOverlayDesigner.Resources
         }
 
         [CategoryAttribute("Bar Settings"), DescriptionAttribute("The border color for the bars")]
-        public string BarBorderColor
+        public Color BarBorderColor
         {
             get { return barBorderColor; }
             set { barBorderColor = value; }
@@ -189,14 +205,14 @@ namespace VotingOverlayDesigner.Resources
 
 
         [CategoryAttribute("Progress Bar Settings"), DescriptionAttribute("The color to use for a disabled progress bar")]
-        public string BarProgressionDisabledColor
+        public Color BarProgressionDisabledColor
         {
             get { return barProgressionDisabledColor; }
             set { barProgressionDisabledColor = value; }
         }
 
         [CategoryAttribute("Progress Bar Settings"), DescriptionAttribute("The color to use for a progress bar")]
-        public string BarProgressionColor
+        public Color BarProgressionColor
         {
             get { return barProgressionColor; }
             set { barProgressionColor = value; }

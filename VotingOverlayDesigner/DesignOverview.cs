@@ -16,12 +16,19 @@ namespace VotingOverlayDesigner
 {
     public partial class DesignerOverview : Form
     {
+
         public DesignerOverview()
         {
             InitializeComponent();
 
             CssSettings sett = new CssSettings();
             propGrid.SelectedObject = sett;
+            propGrid.PropertyValueChanged += propertyValueChanged;
+        }
+
+        private void propertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            this.loadHtml();
         }
 
         private void DesignerOverview_Load(object sender, EventArgs e)
@@ -44,6 +51,11 @@ namespace VotingOverlayDesigner
 
         }
 
+        private string getColorString(Color forColor)
+        {
+            return $"#{forColor.R:X2}{forColor.G:X2}{forColor.B:X2}";
+        }
+
         private void createCss()
         {
             string appDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -51,58 +63,30 @@ namespace VotingOverlayDesigner
 
             String css = File.ReadAllText(cssPath);
 
-
-            bool borderEnabled = false;
-
-
-            //css = css.Replace("##text-color##", "#ffffff");
-            //css = css.Replace("##text-font-family##", "'Arial'");
-            //css = css.Replace("##text-font-weight##", "600");
-            //css = css.Replace("##text-outline-color##", "#000000");
-            //css = css.Replace("##text-outline-thickness##", "1.3");
-            //css = css.Replace("##text-size##", "22");
-            //css = css.Replace("##bar-background-disabled##", "#afafaf");
-            //css = css.Replace("##bar-background##", "#727272");
-            //css = css.Replace("##bar-font-size##", "14");
-            //css = css.Replace("##bar-font-weight##", "600");
-            //css = css.Replace("##bar-font##", "'Arial'");
-            //css = css.Replace("##bar-height##", "35");
-            //css = css.Replace("##bar-width##", "450");
-            //css = css.Replace("##bar-progression-disabled##", "#8d8d8d");
-            //css = css.Replace("##bar-progression##", "#238beb");
-            //css = css.Replace("##bar-text-color-disabled##", "#f3f3f3");
-            //css = css.Replace("##bar-text-color##", "#f1f1f1");
-            //css = css.Replace("##bar-text-outline-color##", "#000000");
-            //css = css.Replace("##bar-text-outline-thickness##", "0");
-            //css = css.Replace("##bar-border-radius##", "0");
-            //css = css.Replace("##bar-progression-border-radius##", "0");
-            //css = css.Replace("##bar-border-color##", "#00B4FFf0");
-            //css = css.Replace("##border-type##", borderEnabled ? "solid" : "none");
-
             CssSettings settings = (CssSettings)this.propGrid.SelectedObject;
 
-            css = css.Replace("##text-color##", settings.TextColor);
+            css = css.Replace("##text-color##", getColorString(settings.TextColor));
             css = css.Replace("##text-font-family##", settings.TextFontFamily);
             css = css.Replace("##text-font-weight##", settings.TextFontWeight.ToString());
-            css = css.Replace("##text-outline-color##", settings.TextOutlineColor);
+            css = css.Replace("##text-outline-color##", getColorString(settings.TextOutlineColor));
             css = css.Replace("##text-outline-thickness##", string.Format("{0:N3}", settings.TextOutlineThickness));
             css = css.Replace("##text-size##", settings.TextSize.ToString());
-            css = css.Replace("##bar-background-disabled##", settings.BarBackgroundDisabledColor);
-            css = css.Replace("##bar-background##", settings.BarBackgroundColor);
+            css = css.Replace("##bar-background-disabled##", getColorString(settings.BarBackgroundDisabledColor));
+            css = css.Replace("##bar-background##", getColorString(settings.BarBackgroundColor));
             css = css.Replace("##bar-font-size##", settings.BarFontSize);
             css = css.Replace("##bar-font-weight##", settings.BarFontWeight);
             css = css.Replace("##bar-font##", settings.BarFont);
             css = css.Replace("##bar-height##", settings.BarHeight);
             css = css.Replace("##bar-width##", settings.BarWidth);
-            css = css.Replace("##bar-progression-disabled##", settings.BarProgressionDisabledColor);
-            css = css.Replace("##bar-progression##", settings.BarProgressionColor);
-            css = css.Replace("##bar-text-color-disabled##", settings.BarTextColorDisabled);
-            css = css.Replace("##bar-text-color##", settings.BarTextColor);
-            css = css.Replace("##bar-text-outline-color##", settings.BarTextOutlineColor);
+            css = css.Replace("##bar-progression-disabled##", getColorString(settings.BarProgressionDisabledColor));
+            css = css.Replace("##bar-progression##", getColorString(settings.BarProgressionColor));
+            css = css.Replace("##bar-text-color-disabled##", getColorString(settings.BarTextColorDisabled));
+            css = css.Replace("##bar-text-color##", getColorString(settings.BarTextColor));
+            css = css.Replace("##bar-text-outline-color##", getColorString(settings.BarTextOutlineColor));
             css = css.Replace("##bar-text-outline-thickness##", settings.BarTextOutlineThickness.ToString());
             css = css.Replace("##bar-border-radius##", settings.BarBorderRadius.ToString());
             css = css.Replace("##bar-progression-border-radius##", settings.BarProgressionBorderRadius.ToString());
-            css = css.Replace("##bar-border-color##", settings.BarBorderColor);
+            css = css.Replace("##bar-border-color##", getColorString(settings.BarBorderColor));
             css = css.Replace("##border-type##", settings.BarBorderEnabled ? "solid" : "none");
 
             string testPath = Path.Combine(appDir, "Resources\\test.css");

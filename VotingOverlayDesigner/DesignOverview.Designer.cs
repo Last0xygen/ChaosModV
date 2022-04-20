@@ -73,6 +73,7 @@
             this.propGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
             this.propGrid.Size = new System.Drawing.Size(393, 423);
             this.propGrid.TabIndex = 2;
+            this.propGrid.ToolbarVisible = false;
             // 
             // DesignerOverview
             // 
