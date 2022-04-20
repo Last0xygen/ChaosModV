@@ -37,18 +37,18 @@
             // 
             // previewWindow
             // 
-            this.previewWindow.Dock = System.Windows.Forms.DockStyle.Right;
-            this.previewWindow.Location = new System.Drawing.Point(610, 0);
-            this.previewWindow.MaximumSize = new System.Drawing.Size(450, 0);
-            this.previewWindow.MinimumSize = new System.Drawing.Size(450, 0);
+            this.previewWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.previewWindow.Location = new System.Drawing.Point(411, 0);
             this.previewWindow.Name = "previewWindow";
             this.previewWindow.ScrollBarsEnabled = false;
-            this.previewWindow.Size = new System.Drawing.Size(450, 491);
+            this.previewWindow.Size = new System.Drawing.Size(745, 573);
             this.previewWindow.TabIndex = 0;
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(458, 441);
+            this.btnRefresh.Location = new System.Drawing.Point(279, 441);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(126, 38);
             this.btnRefresh.TabIndex = 1;
@@ -58,7 +58,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(326, 441);
+            this.btnSave.Location = new System.Drawing.Point(147, 441);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(126, 38);
             this.btnSave.TabIndex = 1;
@@ -71,21 +71,20 @@
             this.propGrid.Location = new System.Drawing.Point(12, 12);
             this.propGrid.Name = "propGrid";
             this.propGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.propGrid.Size = new System.Drawing.Size(572, 423);
+            this.propGrid.Size = new System.Drawing.Size(393, 423);
             this.propGrid.TabIndex = 2;
             // 
             // DesignerOverview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1060, 491);
+            this.ClientSize = new System.Drawing.Size(1168, 579);
             this.Controls.Add(this.propGrid);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.previewWindow);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(1076, 530);
-            this.MinimumSize = new System.Drawing.Size(1076, 530);
+            this.MinimumSize = new System.Drawing.Size(732, 524);
             this.Name = "DesignerOverview";
             this.Text = "Voting Designer";
             this.Load += new System.EventHandler(this.DesignerOverview_Load);

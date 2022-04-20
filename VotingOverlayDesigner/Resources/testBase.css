@@ -5,14 +5,14 @@
 
 #barContainer {
 	overflow: hidden;
-	width: ##bar-width##;
+	width: ##bar-width##px;
 }
 
 #totalVotes {
-	-webkit-text-stroke: ##text-outline-thickness## ##text-outline-color##;
+	-webkit-text-stroke: ##text-outline-thickness##px ##text-outline-color##;
 	color: ##text-color##;
-	font-family: ##text-font-family##;
-	font-size: ##text-size##;
+	font-family: '##text-font-family##';
+	font-size: ##text-size##pt;
 	font-weight: ##text-font-weight##;
 	opacity: 0;
 	transition: opacity 200ms ease-in-out;
@@ -20,11 +20,11 @@
 
 .bar {
 	background-color: ##bar-background##;
-	height: ##bar-height##;
+	height: ##bar-height##px;
 	margin: 10px 0;
 	position: relative;
 	transition: background-color 100ms ease-in-out;
-	border-radius: ##bar-border-radius##;
+	border-radius: ##bar-border-radius##px;
 	border-style: ##border-type##;
 	border-color: ##bar-border-color##;
 }
@@ -46,10 +46,10 @@
 	}
 
 		.bar > .labelContainer > span {
-			-webkit-text-stroke: ##bar-text-outline-thickness## ##bar-text-outline-color##;
+			-webkit-text-stroke: ##bar-text-outline-thickness##px ##bar-text-outline-color##;
 			color: ##bar-text-color##;
-			font-family: ##bar-font##;
-			font-size: ##bar-font-size##;
+			font-family: '##bar-font##';
+			font-size: ##bar-font-size##pt;
 			font-weight: ##bar-font-weight##;
 			transition: color 100ms ease-in-out;
 		}
@@ -63,7 +63,7 @@
 		background-color: ##bar-progression##;
 		height: 100%;
 		transition: width 0.3s ease-in-out;
-		border-radius: ##bar-progression-border-radius##;
+		border-radius: ##bar-progression-border-radius##px;
 	}
 
 		.bar > .progression.disabled {
