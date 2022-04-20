@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
+using VotingOverlayDesigner.Resources;
 
 namespace VotingOverlayDesigner
 {
@@ -18,6 +19,9 @@ namespace VotingOverlayDesigner
         public DesignerOverview()
         {
             InitializeComponent();
+
+            CssSettings sett = new CssSettings();
+            propGrid.SelectedObject = sett;
         }
 
         private void DesignerOverview_Load(object sender, EventArgs e)
