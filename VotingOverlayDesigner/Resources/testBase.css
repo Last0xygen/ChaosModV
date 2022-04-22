@@ -14,7 +14,6 @@
 	font-family: '##text-font-family##';
 	font-size: ##text-size##pt;
 	font-weight: ##text-font-weight##;
-	opacity: 0;
 	transition: opacity 200ms ease-in-out;
 }
 

@@ -84,14 +84,14 @@ namespace VotingOverlayDesigner.Resources
             set { textOutlineColor = value; }
         }
 
-        [CategoryAttribute("Text Settings"), DescriptionAttribute("The thickness of text outline")]
+        [CategoryAttribute("Total Votes Text Settings"), DescriptionAttribute("The thickness of text outline")]
         public float TextOutlineThickness
         {
             get { return textOutlineThickness; }
             set { textOutlineThickness = value; }
         }
 
-        [CategoryAttribute("Text Settings"), DescriptionAttribute("The text size... you know, the size of the text.")]
+        [CategoryAttribute("Total Votes Text Settings"), DescriptionAttribute("The text size... you know, the size of the text.")]
         public int TextSize
         {
             get { return textSize; }

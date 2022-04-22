@@ -36,12 +36,6 @@ namespace VotingOverlayDesigner
             this.loadHtml();
         }
 
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            this.loadHtml();
-        }
-
         private void loadHtml()
         {
             createCss();
