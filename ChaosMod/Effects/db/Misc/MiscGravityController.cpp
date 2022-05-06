@@ -8,7 +8,7 @@ static void OnStop()
 
 static void OnTickLow()
 {
-	SPECIAL_ABILITY_DEPLETE_METER(PLAYER_ID(), true, true);
+	SPECIAL_ABILITY_DEPLETE_METER(PLAYER_ID(), false, false);
 	SET_GRAVITY_LEVEL(1);
 }
 
@@ -23,7 +23,7 @@ static RegisterEffect registerEffect1(EFFECT_LOW_GRAV, nullptr, OnStop, OnTickLo
 );
 static void OnTickVeryLow()
 {
-	SPECIAL_ABILITY_DEPLETE_METER(PLAYER_ID(), true, true);
+	SPECIAL_ABILITY_DEPLETE_METER(PLAYER_ID(), false, false);
 	SET_GRAVITY_LEVEL(2);
 }
 
@@ -39,7 +39,7 @@ static RegisterEffect registerEffect2(EFFECT_VERY_LOW_GRAV, nullptr, OnStop, OnT
 static void OnTickInsane()
 {
 	Memory::SetGravityLevel(200.f);
-	SPECIAL_ABILITY_DEPLETE_METER(PLAYER_ID(), true, true);
+	SPECIAL_ABILITY_DEPLETE_METER(PLAYER_ID(), false, false);
 
 	for (auto ped : GetAllPeds())
 	{
@@ -74,7 +74,7 @@ static void OnStartInvert()
 static void OnTickInvert()
 {
 	Memory::SetGravityLevel(-1.f);
-	SPECIAL_ABILITY_DEPLETE_METER(PLAYER_ID(), true, true);
+	SPECIAL_ABILITY_DEPLETE_METER(PLAYER_ID(), false, false);
 
 	for (auto ped : GetAllPeds())
 	{
@@ -162,7 +162,7 @@ static void OnTickChanging()
 	}
 
 	Memory::SetGravityLevel(ChangingGravityLevel);
-	SPECIAL_ABILITY_DEPLETE_METER(PLAYER_ID(), true, true);
+	SPECIAL_ABILITY_DEPLETE_METER(PLAYER_ID(), false, false);
 
 	for (auto ped : GetAllPeds())
 	{
