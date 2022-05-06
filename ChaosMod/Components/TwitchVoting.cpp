@@ -413,6 +413,23 @@ bool TwitchVoting::HandleMsg(const std::string& szMsg)
 		// If random effect voteable (result == 3) won, dispatch random effect later
 		m_pChosenEffectIdentifier = std::make_unique<EffectIdentifier>(iResult == 3 ? EFFECT_INVALID : m_rgEffectChoices[iResult]->m_EffectIdentifier);
 	}
+	else if (szMsg._Starts_with("executeEffect"))
+	{
+		std::string sResult = szMsg.substr(szMsg.find(":") + 1);
+		LOG(sResult);
+		for (auto eff : g_EnabledEffects)
+		{
+			LOG(eff.second.Id);
+			if (eff.second.Id == sResult)
+			{
+				g_pEffectDispatcher->DispatchEffect(eff.first);
+				break;
+			}
+		}
+		//m_pChosenEffectIdentifier = std::make_unique<EffectIdentifier>(m_rgEffectChoices[iResult]->m_EffectIdentifier);
+
+
+	}
 	else if (szMsg._Starts_with("currentvotes"))
 	{
 		std::string szValuesStr = szMsg.substr(szMsg.find(":") + 1);

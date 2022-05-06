@@ -108,6 +108,14 @@ namespace TwitchChatVotingProxy.ChaosPipe
             logger.Debug($"vote result sent to pipe: {e.ChosenOption}");
         }
         /// <summary>
+        /// Just a debug function to invoke evil effects lol
+        /// </summary>
+        public void ExecuteCommand(string effectName)
+        {
+            SendMessageToPipe($"executeEffect:{effectName}");
+        }
+
+        /// <summary>
         /// Gets called every pipe tick
         /// </summary>
         private void PipeTick(object sender, ElapsedEventArgs e)

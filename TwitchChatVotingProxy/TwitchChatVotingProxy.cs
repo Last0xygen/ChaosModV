@@ -78,7 +78,7 @@ namespace TwitchChatVotingProxy
                 var chaosPipe = new ChaosPipeClient();
 
                 // Start the chaos mod controller
-                new ChaosModController(chaosPipe, overlayServer, votingReceiver, config);
+                new ChaosModController(chaosPipe, overlayServer, votingReceiver, config, chaosPipe);
 
                 while (chaosPipe.IsConnected()) { }
             }

