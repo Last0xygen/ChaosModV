@@ -38,12 +38,13 @@ static void onTickSprunk()
     SET_ENTITY_ROTATION(obj, entityPitch, -GET_ENTITY_ROLL(player), entityHeading, 0, true);
 }
 
-static RegisterEffect registerEffect(EFFECT_MISC_QUICK_SPRUNK_STOP, nullptr, nullptr, onTickSprunk, EffectInfo
+// clang-format off
+REGISTER_EFFECT(onTickSprunk, EffectInfo
     {
         .Name = "Quick Sprunk Stops",
         .Id = "misc_quick_sprunk_stop",
         .IsTimed = true,
         .IsShortDuration = false,
-        .EEffectGroupType = EEffectGroupType::SpawnGeneric
+        .EffectGroupType = EEffectGroupType::SpawnGeneric
     }
 );
