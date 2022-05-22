@@ -46,7 +46,7 @@ static void OnTick()
 	}
 }
 
-static RegisterEffect registerEffect(EFFECT_VEH_HONK_FIELD, nullptr, nullptr, OnTick, EffectInfo
+REGISTER_EFFECT(nullptr, nullptr, OnTick, EffectInfo
 	{
 		.Name = "Honk Field",
 		.Id = "vehs_honkfield",

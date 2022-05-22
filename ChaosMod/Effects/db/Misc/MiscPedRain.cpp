@@ -3,6 +3,7 @@
 */
 
 #include <stdafx.h>
+#include <Memory/PedModels.h>
 
 #define SPAWN_HEIGHT 50.f
 
@@ -29,7 +30,6 @@ static void OnTick()
 	if (curTick > lastTick + 300)
 	{
 		lastTick = curTick;
-
 		static std::vector<Hash> pedModels = Memory::GetAllPedModels();
 		if (!pedModels.empty())
 		{
@@ -90,7 +90,7 @@ static void OnStop()
 	fallingPeds.clear();
 }
 
-static RegisterEffect registerEffect(EFFECT_MISC_PED_RAIN, nullptr, OnStop, OnTick, EffectInfo
+REGISTER_EFFECT(nullptr, OnStop, OnTick, EffectInfo
 	{
 		.Name = "It's Raining Men",
 		.Id = "misc_ped_rain",

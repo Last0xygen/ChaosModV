@@ -27,7 +27,7 @@ static void OnStop()
 	}
 }
 
-static RegisterEffect registerEffect(EFFECT_PLAYER_SUFFER, nullptr, OnStop, OnTick, EffectInfo
+REGISTER_EFFECT(nullptr, OnStop, OnTick, EffectInfo
 	{
 		.Name = "Suffering",
 		.Id = "player_suffer",

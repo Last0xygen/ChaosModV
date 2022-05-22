@@ -217,12 +217,12 @@ static void OnTick()
     }
 }
 
-static RegisterEffect registerEffect(EFFECT_MISC_FULLASSAULT, OnStart, OnStop, OnTick, EffectInfo
+REGISTER_EFFECT(OnStart, OnStop, OnTick, EffectInfo
 	{
 		.Name = "Full Police Assault",
 		.Id = "misc_fullassault",
 		.IsTimed = true,
 		.IsShortDuration = true,
-		.IncompatibleWith = { EFFECT_PEDS_COPS, EFFECT_PEDS_FOLLOW_PLAYER, EFFECT_NEVER_WANTED }
+		.IncompatibleWith = { "peds_cops", "player_famous", "player_neverwanted" }
 	}
 );

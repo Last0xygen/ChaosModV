@@ -41,7 +41,7 @@ static void OnTick()
     }
 }
 
-static RegisterEffect registerEffect(EFFECT_MISC_SHRINKCAM, OnStart, nullptr, OnTick, EffectInfo
+REGISTER_EFFECT(OnStart, nullptr, OnTick, EffectInfo
 	{
 		.Name = "Shrinking Screen",
 		.Id = "misc_shrinkcam",

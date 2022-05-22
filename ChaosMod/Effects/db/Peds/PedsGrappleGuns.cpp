@@ -96,7 +96,7 @@ static void OnTick()
 	}
 }
 
-static RegisterEffect registerEffect(EFFECT_PEDS_GRAPPLE_GUNS, OnStart, nullptr, OnTick, EffectInfo
+REGISTER_EFFECT(OnStart, nullptr, OnTick, EffectInfo
 	{
 		.Name = "Gravity Guns",
 		.Id = "peds_grapple_guns",

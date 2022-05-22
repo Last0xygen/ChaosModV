@@ -34,7 +34,7 @@ static void OnTick()
 	}
 }
 
-static RegisterEffect registerEffect(EFFECT_MISC_HYPERACCEL, nullptr, nullptr, OnTick, EffectInfo
+REGISTER_EFFECT(nullptr, nullptr, OnTick, EffectInfo
 	{
 		.Name = "Hyper Acceleration",
 		.Id = "misc_hyperaccel",

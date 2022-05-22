@@ -3,6 +3,7 @@
 */
 
 #include <stdafx.h>
+#include <Memory/WeaponPool.h>
 
 
 static int playerKillsLast;
@@ -47,7 +48,7 @@ static void OnTick()
 	playerKillsLast = allPlayerKills;
 }
 
-static RegisterEffect registerEffect(EFFECT_PLAYER_GUN_GAME, OnStart, nullptr, OnTick, EffectInfo
+REGISTER_EFFECT(OnStart, nullptr, OnTick, EffectInfo
     {
         .Name = "Gun Game",
         .Id = "player_gun_game",

@@ -77,7 +77,7 @@ static void OnStart()
 	}
 }
 
-static RegisterEffect registerEffect(EFFECT_MISC_CRASHROULETTE, OnStart, EffectInfo
+REGISTER_EFFECT(OnStart, nullptr, nullptr, EffectInfo
 	{
 		.Name = "Crash Roulette",
 		.Id = "misc_crashroulette"

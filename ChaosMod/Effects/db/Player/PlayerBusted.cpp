@@ -1,4 +1,5 @@
 #include <stdafx.h>
+#include "Util/Player.h"
 
 static bool isActive = false;
 static bool needsTeleport = true;
@@ -63,6 +64,7 @@ static void OnTick()
 			BarFrame();
 			if (needsTeleport) {
 				TeleportPlayer(436.491f, -982.172f, 30.699f);
+				
 				needsTeleport = false;
 			}
 		}
@@ -79,7 +81,7 @@ static void OnStop()
 	}
 }
 
-static RegisterEffect registerEffect(EFFECT_PLAYER_BUSTED, OnStart, OnStop, OnTick, EffectInfo
+REGISTER_EFFECT(OnStart, OnStop, OnTick, EffectInfo
 	{
 		.Name = "Jailtime",
 		.Id = "player_busted",

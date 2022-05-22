@@ -48,7 +48,8 @@ static void OnTickSpike()
 	WAIT(g_Random.GetRandomInt(600, 1300));
 }
 
-static RegisterEffect registerEffect3(EFFECT_MISC_LAGSPIKES, nullptr, nullptr, OnTickSpike, EffectInfo
+REGISTER_EFFECT(nullptr, nullptr, OnTickSpike,
+                EffectInfo
 	{
 		.Name = "Lagspikes",
 		.Id = "misc_lagspikes",

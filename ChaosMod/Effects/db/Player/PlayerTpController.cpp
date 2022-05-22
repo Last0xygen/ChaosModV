@@ -40,7 +40,7 @@ static void OnStartAltruistCamp()
 	TeleportPlayer(-1170.841f, 4926.646f, 224.295f);
 }
 
-REGISTER_EFFECT(OnStartAltruistCamp, nullptr, nullptr, , EffectInfo
+REGISTER_EFFECT(OnStartAltruistCamp, nullptr, nullptr, EffectInfo
 	{
 		.Name = "Teleport To Altruist Camp",
 		.Id = "tp_altruistcamp",
@@ -412,6 +412,6 @@ REGISTER_EFFECT(OnStartPlayboyMansion, nullptr, nullptr, EffectInfo
 	{
 		.Name = "Teleport To Playboy Mansion",
 		.Id = "tp_playboymansion",
-		.EEffectGroupType = EEffectGroupType::Teleport
+		.EffectGroupType = EEffectGroupType::Teleport
 	}
 );

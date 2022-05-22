@@ -32,7 +32,7 @@ static void OnTick()
 	}
 }
 
-static RegisterEffect registerEffect(EFFECT_MISC_GLOBAL_ARSON, nullptr, nullptr, OnTick, EffectInfo
+REGISTER_EFFECT(nullptr, nullptr, OnTick, EffectInfo
 	{
 		.Name = "This Is Fine",
 		.Id = "global_arson",

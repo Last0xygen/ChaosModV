@@ -78,10 +78,10 @@ static void OnStart()
 }
 
 
-static RegisterEffect registerEffect(EFFECT_PEDS_CHANCEJESUS, OnStart, EffectInfo
+REGISTER_EFFECT(OnStart, nullptr, nullptr, EffectInfo
 	{
 		.Name = "Spawn 70/30 Jesus",
 		.Id = "spawn_chancejesus",
-		.EEffectGroupType = EEffectGroupType::SpawnEnemySpecial
+		.EffectGroupType = EEffectGroupType::SpawnEnemySpecial
 	}
 );

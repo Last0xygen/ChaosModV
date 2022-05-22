@@ -34,7 +34,7 @@ static void OnTick()
 	}
 }
 
-static RegisterEffect registerEffect(EFFECT_PLAYER_SPAMCLOTHES, nullptr, nullptr, OnTick, EffectInfo
+REGISTER_EFFECT(nullptr, nullptr, OnTick, EffectInfo
 	{
 		.Name = "What Clothes Do I Wear",
 		.Id = "player_spamclothes",

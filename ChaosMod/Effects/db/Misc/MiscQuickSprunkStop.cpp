@@ -39,7 +39,7 @@ static void onTickSprunk()
 }
 
 // clang-format off
-REGISTER_EFFECT(onTickSprunk, EffectInfo
+REGISTER_EFFECT(nullptr, nullptr, onTickSprunk, EffectInfo
     {
         .Name = "Quick Sprunk Stops",
         .Id = "misc_quick_sprunk_stop",

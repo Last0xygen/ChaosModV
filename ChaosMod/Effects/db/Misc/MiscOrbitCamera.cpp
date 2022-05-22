@@ -54,7 +54,7 @@ static void OnStop()
     orbitCamera = 0;
 }
 
-static RegisterEffect registerEffect(EFFECT_MISC_ORBIT_CAMERA, OnStart, OnStop, OnTick, EffectInfo
+REGISTER_EFFECT(OnStart, OnStop, OnTick, EffectInfo
     {
         .Name = "Orbit Camera",
         .Id = "misc_orbit_camera",

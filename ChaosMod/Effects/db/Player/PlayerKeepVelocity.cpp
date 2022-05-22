@@ -22,7 +22,7 @@ static void OnTick()
 	}
 }
 
-static RegisterEffect registerEffect(EFFECT_PLAYER_KEEPVEL, OnStart, nullptr, OnTick, EffectInfo
+REGISTER_EFFECT(OnStart, nullptr, OnTick, EffectInfo
 	{
 		.Name = "Keep Velocity",
 		.Id = "player_keepvel",

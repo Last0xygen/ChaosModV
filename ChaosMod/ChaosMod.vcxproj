@@ -102,7 +102,6 @@
     <ClCompile Include="Effects\db\Misc\MiscBlackout.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscBlueballed.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscCrashRoulette.cpp" />
-    <ClCompile Include="Effects\db\Misc\MiscDVDScreensaver.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscEarthquake.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscFpsLimit.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscFullAssault.cpp" />

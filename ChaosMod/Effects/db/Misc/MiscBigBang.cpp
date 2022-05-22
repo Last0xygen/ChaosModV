@@ -99,7 +99,7 @@ static void OnStart()
 	SET_ENTITY_INVINCIBLE(playerPed, false);
 }
 
-static RegisterEffect registerEffect(EFFECT_MISC_BIG_BANG, OnStart, EffectInfo
+REGISTER_EFFECT(OnStart, nullptr, nullptr, EffectInfo
     {
         .Name = "Big Bang",
         .Id = "misc_big_bang"

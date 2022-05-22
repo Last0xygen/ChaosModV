@@ -53,7 +53,7 @@ static void OnStart()
 	}
 }
 
-static RegisterEffect registerEffect(EFFECT_PEDS_VEHTHIEVES, OnStart, EffectInfo
+REGISTER_EFFECT(OnStart, nullptr, nullptr, EffectInfo
 	{
 		.Name = "Vehicle Thieves",
 		.Id = "peds_vehthieves"
