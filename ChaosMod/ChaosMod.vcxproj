@@ -149,7 +149,6 @@
     <ClCompile Include="Effects\db\Peds\PedsMinions.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsSpawnAngryJimmy.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsSpawnRoastingLamar.cpp" />
-    <ClCompile Include="Effects\db\Player\PlayerBladeHunger.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerBusted.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerClothesLot.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerDeadEye.cpp" />
@@ -379,6 +378,7 @@
     <ClCompile Include="Components\Failsafe.cpp" />
     <ClCompile Include="LuaScripts.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Memory\Hooks\ApplyChangeSetEntryHook.cpp" />
     <ClCompile Include="Memory\Hooks\PresentHook.cpp" />
     <ClCompile Include="Memory\Hooks\ScriptThreadRunHook.cpp" />
     <ClCompile Include="Memory\Hooks\HandleToEntityStructHook.cpp" />
