@@ -354,7 +354,6 @@ namespace ConfigApp
             { "player_keepvel", new EffectInfo("Keep Velocity", EffectCategory.Player, true, true)},
             { "peds_last_supper", new EffectInfo("Last Supper", EffectCategory.Peds)},
             { "veh_wiggle_changes_size", new EffectInfo("Wiggle-Wiggle", EffectCategory.Vehicle, true)},
-            { "peds_grapple_guns", new EffectInfo("Gravity Guns", EffectCategory.Peds, true)},
             { "misc_ped_rain", new EffectInfo("It's Raining Men", EffectCategory.Misc, true)},
             { "misc_orbit_camera", new EffectInfo("Orbit Camera", EffectCategory.Misc, true, true)},            
             { "player_gun_game", new EffectInfo("Gun Game", EffectCategory.Player, true)},
