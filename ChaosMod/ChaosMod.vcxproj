@@ -150,6 +150,7 @@
     <ClCompile Include="Effects\db\Peds\PedsMinions.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsSpawnAngryJimmy.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsSpawnRoastingLamar.cpp" />
+    <ClCompile Include="Effects\db\Peds\PedsSquatting.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerBusted.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerClothesLot.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerDeadEye.cpp" />

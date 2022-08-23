@@ -355,8 +355,9 @@ namespace ConfigApp
             { "peds_last_supper", new EffectInfo("Last Supper", EffectCategory.Peds)},
             { "veh_wiggle_changes_size", new EffectInfo("Wiggle-Wiggle", EffectCategory.Vehicle, true)},
             { "misc_ped_rain", new EffectInfo("It's Raining Men", EffectCategory.Misc, true)},
-            { "misc_orbit_camera", new EffectInfo("Orbit Camera", EffectCategory.Misc, true, true)},            
+            { "misc_orbit_camera", new EffectInfo("Orbit Camera", EffectCategory.Misc, true, true)},
             { "player_gun_game", new EffectInfo("Gun Game", EffectCategory.Player, true)},
+            { "peds_squatting", new EffectInfo("Squatting", EffectCategory.Peds, true)},
 
 
 
