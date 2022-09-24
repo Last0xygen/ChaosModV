@@ -9,9 +9,11 @@
 static void OnStart()
 {
 	Ped playerPed                   = PLAYER_PED_ID();
+	static const Hash parachuteHash = GET_HASH_KEY("GADGET_PARACHUTE");
 
 	CLEAR_PED_TASKS_IMMEDIATELY(playerPed);
 	SET_PED_TO_RAGDOLL(playerPed, 10000, 10000, 0, true, true, false);
+	GIVE_WEAPON_TO_PED(playerPed, parachuteHash, 1, true, false);
 
 	// REQUEST_NAMED_PTFX_ASSET("core"); Doesn't seem to be necessary
 
@@ -54,7 +56,6 @@ static void OnStart()
 		WAIT(0);
 	}
 
-	GIVE_WEAPON_TO_PED(playerPed, GET_HASH_KEY("WEAPON_PARACHUTE"), 9999, true, true);
 	SET_ENTITY_INVINCIBLE(playerPed, false);
 }
 
