@@ -76,6 +76,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PreprocessorDefinitions>_WINDLL;%(PreprocessorDefinitions);CURL_STATICLIB;NOMINMAX;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.;../vendor</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -114,11 +115,13 @@
     <ClCompile Include="Effects\db\Misc\MiscLowPitch.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscNoWater.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscPause.cpp" />
+    <ClCompile Include="Effects\db\Misc\MiscPayRespects.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscPedRain.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscPortraitMode.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscNoSky.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscRampJam.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscFakeCrash.cpp" />
+    <ClCompile Include="Effects\db\Misc\MiscSolidProps.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscShrinkCam.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscSpinningProps.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscRandomWaypoint.cpp" />
@@ -145,11 +148,14 @@
     <ClCompile Include="Effects\db\Peds\PedsNailguns.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsPropHunt.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsQuarrelingCouple.cpp" />
+    <ClCompile Include="Effects\db\Peds\PedsSmokeTrails.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsSpawnAngryChimp.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsSpawnBallaSquad.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsMinions.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsSpawnAngryJimmy.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsSpawnRoastingLamar.cpp" />
+    <ClCompile Include="Effects\db\Peds\PedsReflectiveDamage.cpp" />
+    <ClCompile Include="Effects\db\Peds\PedsToast.cpp" />
     <ClCompile Include="Effects\db\Peds\PedsSquatting.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerBusted.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerClothesLot.cpp" />
@@ -169,6 +175,7 @@
     <ClCompile Include="Effects\db\Peds\PedsMercenaries.cpp" />
     <ClCompile Include="Effects\db\Misc\MiscOilLeaks.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerIllegalInnocence.cpp" />
+    <ClCompile Include="Effects\db\Player\PlayerMovementSpeed.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerKeepVelocity.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerSuffering.cpp" />
     <ClCompile Include="Effects\db\Player\PlayerRandomStuntJump.cpp" />
@@ -207,6 +214,8 @@
     <ClCompile Include="Effects\db\Screen\Shaders\ScreenShaderTnPanel.cpp" />
     <ClCompile Include="Effects\db\Screen\Shaders\ScreenShaderWarpedCam.cpp" />
     <ClCompile Include="Effects\db\Vehs\VehsCrumble.cpp" />
+    <ClCompile Include="Effects\db\Vehs\VehsDetachWheel.cpp" />
+    <ClCompile Include="Effects\db\Vehs\VehsDisassemble.cpp" />
     <ClCompile Include="Effects\db\Vehs\VehsHonkField.cpp" />
     <ClCompile Include="Effects\db\Vehs\VehsPropModels.cpp" />
     <ClCompile Include="Effects\db\Vehs\VehsReplaceVehicle.cpp" />
@@ -471,6 +480,7 @@
     <ClInclude Include="Util\Types.h" />
     <ClInclude Include="Util\Vehicle.h" />
     <ClInclude Include="Util\Weapon.h" />
+    <ClInclude Include="Info.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ChaosMod.rc" />
