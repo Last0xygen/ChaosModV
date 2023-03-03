@@ -136,8 +136,10 @@ namespace EffectThreads
 
 	void SwitchToEffectDispatcherThread()
 	{
-		if (g_EffectDispatcherThread)
-			SwitchToFiber(g_EffectDispatcherThread);
+		// TODO Fiber bug
+		//if (g_EffectDispatcherThread)
+		//	SwitchToFiber(g_EffectDispatcherThread);
+		SwitchToFiber(g_MainThread);
 	}
 
 	bool DoesThreadExist(DWORD64 threadId)

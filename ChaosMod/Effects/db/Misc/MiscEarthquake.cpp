@@ -5,18 +5,18 @@
 #include <stdafx.h>
 
 #include "Memory/Physics.h"
-#include "Util/XInput.h"
+#include "Util/Xinput.h"
 
 static void OnStop()
 {
-	XInput::StopAllControllersRumble();
+	//XInput::StopAllControllersRumble();
 
 	CAM::STOP_GAMEPLAY_CAM_SHAKING(true);
 }
 
 static void OnTick()
 {
-	XInput::SetAllControllersRumble(40000, 40000);
+	//XInput::SetAllControllersRumble(40000, 40000);
 
 	CAM::SHAKE_GAMEPLAY_CAM("LARGE_EXPLOSION_SHAKE", 0.05f);
 	float shook = GET_RANDOM_FLOAT_IN_RANGE(

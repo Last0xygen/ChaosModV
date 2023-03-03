@@ -72,11 +72,12 @@ EffectDispatcher::EffectDispatcher(const std::array<BYTE, 3> &rgTimerColor, cons
 
 	Reset();
 
-	if (g_EffectDispatcherThread)
-	{
-		DeleteFiber(g_EffectDispatcherThread);
-	}
-	g_EffectDispatcherThread = CreateFiber(0, _OnRunEffects, this);
+	//if (g_EffectDispatcherThread)
+	//if (g_EffectDispatcherThread)
+	//{
+	//	DeleteFiber(g_EffectDispatcherThread);
+	//}
+	//g_EffectDispatcherThread = CreateFiber(0, _OnRunEffects, this);
 }
 
 EffectDispatcher::~EffectDispatcher()
@@ -88,11 +89,12 @@ void EffectDispatcher::OnModPauseCleanup()
 {
 	ClearEffects();
 
-	if (g_EffectDispatcherThread)
-	{
-		DeleteFiber(g_EffectDispatcherThread);
-	}
-	g_EffectDispatcherThread = nullptr;
+	// TODO Fiber bug
+	//if (g_EffectDispatcherThread)
+	//{
+	//	DeleteFiber(g_EffectDispatcherThread);
+	//}
+	//g_EffectDispatcherThread = nullptr;
 }
 
 void EffectDispatcher::OnRun()
@@ -107,14 +109,18 @@ void EffectDispatcher::OnRun()
 		iDeltaTime = 0;
 	}
 
+	UpdateEffects(iDeltaTime);
+
 	if (!m_bPauseTimer)
 	{
+		UpdateMetaEffects(iDeltaTime);
 		UpdateTimer(iDeltaTime);
 	}
 
 	DrawTimerBar();
 
-	SwitchToFiber(g_EffectDispatcherThread);
+	// TODO Fiber bug
+	//SwitchToFiber(g_EffectDispatcherThread);
 
 	DrawEffectTexts();
 }
