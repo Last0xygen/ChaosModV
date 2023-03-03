@@ -12,6 +12,31 @@
 #include "Util/Random.h"
 #include "Util/Text.h"
 
+static void _OnRunEffects(LPVOID data)
+{
+	auto effectDispatcher = reinterpret_cast<EffectDispatcher *>(data);
+	while (true)
+	{
+		DWORD64 ullCurrentUpdateTime = GetTickCount64();
+		int iDeltaTime               = ullCurrentUpdateTime - effectDispatcher->m_ullTimer;
+
+		// the game was paused
+		if (iDeltaTime > 1000)
+		{
+			iDeltaTime = 0;
+		}
+
+		effectDispatcher->UpdateEffects(iDeltaTime);
+
+		if (!effectDispatcher->m_bPauseTimer)
+		{
+			effectDispatcher->UpdateMetaEffects(iDeltaTime);
+		}
+
+		SwitchToFiber(g_MainThread);
+	}
+}
+
 EffectDispatcher::EffectDispatcher(const std::array<BYTE, 3> &rgTimerColor, const std::array<BYTE, 3> &rgTextColor,
                                    const std::array<BYTE, 3> &rgEffectTimerColor)
     : Component()
@@ -46,6 +71,12 @@ EffectDispatcher::EffectDispatcher(const std::array<BYTE, 3> &rgTimerColor, cons
 	    g_OptionsManager.GetTwitchValue<int>("TwitchVotingOverlayMode", OPTION_DEFAULT_TWITCH_OVERLAY_MODE));
 
 	Reset();
+
+	if (g_EffectDispatcherThread)
+	{
+		DeleteFiber(g_EffectDispatcherThread);
+	}
+	g_EffectDispatcherThread = CreateFiber(0, _OnRunEffects, this);
 }
 
 EffectDispatcher::~EffectDispatcher()
@@ -56,6 +87,12 @@ EffectDispatcher::~EffectDispatcher()
 void EffectDispatcher::OnModPauseCleanup()
 {
 	ClearEffects();
+
+	if (g_EffectDispatcherThread)
+	{
+		DeleteFiber(g_EffectDispatcherThread);
+	}
+	g_EffectDispatcherThread = nullptr;
 }
 
 void EffectDispatcher::OnRun()
@@ -70,15 +107,15 @@ void EffectDispatcher::OnRun()
 		iDeltaTime = 0;
 	}
 
-	UpdateEffects(iDeltaTime);
-
 	if (!m_bPauseTimer)
 	{
-		UpdateMetaEffects(iDeltaTime);
 		UpdateTimer(iDeltaTime);
 	}
 
 	DrawTimerBar();
+
+	SwitchToFiber(g_EffectDispatcherThread);
+
 	DrawEffectTexts();
 }
 
@@ -114,29 +151,35 @@ void EffectDispatcher::UpdateEffects(int iDeltaTime)
 		return;
 	}
 
-	for (ActiveEffect &effect : m_rgActiveEffects)
-	{
-		if (effect.m_bHideText && EffectThreads::HasThreadOnStartExecuted(effect.m_ullThreadId))
-		{
-			effect.m_bHideText = false;
-		}
-	}
+	float fDeltaTime = (float)iDeltaTime / 1000;
 
-	float fDeltaTime               = (float)iDeltaTime / 1000;
-
-	int activeEffectsSize          = m_rgActiveEffects.size();
-	int maxEffects                 = (int)(floor((1.0f - GetEffectTopSpace()) / m_fEffectsInnerSpacingMin) - 1);
-	maxEffects                     = std::min(maxEffects, m_iMaxRunningEffects);
+	int maxEffects =
+	    std::min((int)(floor((1.0f - GetEffectTopSpace()) / m_fEffectsInnerSpacingMin) - 1), m_iMaxRunningEffects);
 	int effectCountToCheckCleaning = 3;
 	std::vector<ActiveEffect>::iterator it;
 	for (it = m_rgActiveEffects.begin(); it != m_rgActiveEffects.end();)
 	{
-		ActiveEffect &effect   = *it;
-		EffectData &effectData = g_dictEnabledEffects.at(effect.m_EffectIdentifier);
-		
+		ActiveEffect &effect = *it;
+
+		if (effect.m_bHideText && EffectThreads::HasThreadOnStartExecuted(effect.m_ullThreadId))
+		{
+			effect.m_bHideText = false;
+		}
+
+		bool isTimed = false;
+		bool isMeta  = false;
+		// Temporary non-timed effects will have their entries removed already since their OnStop is called immediately
+		if (g_dictEnabledEffects.contains(effect.m_EffectIdentifier))
+		{
+			EffectData &effectData = g_dictEnabledEffects.at(effect.m_EffectIdentifier);
+			isTimed =
+			    effectData.TimedType != EEffectTimedType::NotTimed && effectData.TimedType != EEffectTimedType::Unk;
+			isMeta = effectData.IsMeta();
+		}
+
 		if (effect.m_fMaxTime > 0)
 		{
-			if (effectData.IsMeta())
+			if (isMeta)
 			{
 				effect.m_fTimer -= fDeltaTime;
 			}
@@ -145,25 +188,29 @@ void EffectDispatcher::UpdateEffects(int iDeltaTime)
 				effect.m_fTimer -= fDeltaTime / MetaModifiers::m_fEffectDurationModifier;
 			}
 		}
-		else if (effectData.TimedType == EEffectTimedType::NotTimed
-		         || effectData.TimedType == EEffectTimedType::Unk)
+		else if (!isTimed)
 		{
 			float t = m_usEffectTimedDur, m = maxEffects, n = effectCountToCheckCleaning;
 			// ensure effects stay on screen for at least 5 seconds
-			effect.m_fTimer += fDeltaTime / t * (1.f + (t / 5 - 1) * std::max(0.f, activeEffectsSize - n) / (m - n));
+			effect.m_fTimer +=
+			    fDeltaTime / t * (1.f + (t / 5 - 1) * std::max(0.f, m_rgActiveEffects.size() - n) / (m - n));
 		}
 
-		
-		if (effect.m_fMaxTime > 0 && effect.m_fTimer <= 0
-		    || (effectData.TimedType == EEffectTimedType::NotTimed || effectData.TimedType == EEffectTimedType::Unk)
-		           && (activeEffectsSize > maxEffects || effect.m_fTimer >= 0.f))
+		if (effect.m_bIsStopping)
 		{
-			EffectThreads::StopThread(effect.m_ullThreadId);
-			activeEffectsSize--;
+			EffectThreads::StopThreadImmediately(effect.m_ullThreadId);
 			it = m_rgActiveEffects.erase(it);
 		}
 		else
 		{
+			if (effect.m_fMaxTime > 0 && effect.m_fTimer <= 0
+			    || !isTimed && (m_rgActiveEffects.size() > maxEffects || effect.m_fTimer >= 0.f)
+			           && !effect.m_bIsStopping)
+			{
+				EffectThreads::StopThread(effect.m_ullThreadId);
+				effect.m_bIsStopping = true;
+			}
+
 			it++;
 		}
 	}
@@ -187,7 +234,7 @@ void EffectDispatcher::UpdateMetaEffects(int iDeltaTime)
 		float totalWeight = 0.f;
 		for (auto &[effectId, effectData] : g_dictEnabledEffects)
 		{
-			if (effectData.IsMeta() && effectData.TimedType != EEffectTimedType::Permanent && !effectData.IsUtility())
+			if (effectData.IsMeta() && !effectData.IsUtility() && !effectData.IsHidden())
 			{
 				totalWeight += GetEffectWeight(effectData);
 
@@ -222,8 +269,8 @@ void EffectDispatcher::UpdateMetaEffects(int iDeltaTime)
 		}
 		else
 		{
-			m_bMetaEffectsEnabled = false;
-			m_fMetaEffectTimerPercentage    = 0.f;
+			m_bMetaEffectsEnabled        = false;
+			m_fMetaEffectTimerPercentage = 0.f;
 		}
 	}
 }
@@ -266,20 +313,27 @@ void EffectDispatcher::DrawEffectTexts()
 
 	if (m_rgActiveEffects.size() > 0)
 	{
-		effectSpacing = std::min(m_fEffectsInnerSpacingMax, 
-			std::max(m_fEffectsInnerSpacingMin, (1.0f - fPosY) / m_rgActiveEffects.size()));
+		effectSpacing = std::min(m_fEffectsInnerSpacingMax,
+		                         std::max(m_fEffectsInnerSpacingMin, (1.0f - fPosY) / m_rgActiveEffects.size()));
 	}
 
 	for (const ActiveEffect &effect : m_rgActiveEffects)
 	{
 		const bool bHasFake = !effect.m_szFakeName.empty();
-		auto &effectData    = g_dictEnabledEffects.at(effect.m_EffectIdentifier);
 
-		if ((effect.m_bHideText && !bHasFake)
-		    || (MetaModifiers::m_bHideChaosUI && !effectData.IsMeta() && !effectData.IsUtility())
-		    || (MetaModifiers::m_bDisableChaos && !effectData.IsMeta() && !effectData.IsUtility()))
+		// Temporary non-timed effects will have their entries removed already since their OnStop is called immediately
+		if (g_dictEnabledEffects.contains(effect.m_EffectIdentifier))
 		{
-			continue;
+			auto &effectData = g_dictEnabledEffects.at(effect.m_EffectIdentifier);
+
+			if ((effect.m_bHideText && !bHasFake)
+			    || (MetaModifiers::m_bHideChaosUI && !effectData.IsMeta() && !effectData.IsUtility()
+			        && !effectData.IsTemporary())
+			    || (MetaModifiers::m_bDisableChaos && !effectData.IsMeta() && !effectData.IsUtility()
+			        && !effectData.IsTemporary()))
+			{
+				continue;
+			}
 		}
 
 		std::string name = effect.m_szFakeName;
@@ -320,12 +374,12 @@ void EffectDispatcher::DrawEffectTexts()
 	}
 }
 
-_NODISCARD bool EffectDispatcher::ShouldDispatchEffectNow() const
+bool EffectDispatcher::ShouldDispatchEffectNow() const
 {
 	return GetRemainingTimerTime() <= 0;
 }
 
-_NODISCARD int EffectDispatcher::GetRemainingTimerTime() const
+int EffectDispatcher::GetRemainingTimerTime() const
 {
 	return std::ceil(m_usEffectSpawnTime / MetaModifiers::m_fTimerSpeedModifier * (1 - m_fTimerPercentage));
 }
@@ -364,7 +418,7 @@ void EffectDispatcher::DispatchEffect(const EffectIdentifier &effectIdentifier, 
 		}
 	}
 
-	LOG("Dispatched effect \"" << effectData.Name << "\"");
+	LOG("Dispatching effect \"" << effectData.Name << "\"");
 
 	// Check if timed effect already is active, reset timer if so
 	// Also check for incompatible effects
@@ -377,11 +431,16 @@ void EffectDispatcher::DispatchEffect(const EffectIdentifier &effectIdentifier, 
 		ActiveEffect &activeEffect = *it;
 		auto &activeEffectData     = g_dictEnabledEffects.at(activeEffect.m_EffectIdentifier);
 
-		if (activeEffect.m_EffectIdentifier == effectIdentifier && effectData.TimedType != EEffectTimedType::Unk
-		    && effectData.TimedType != EEffectTimedType::NotTimed)
+		if (activeEffect.m_EffectIdentifier == effectIdentifier)
 		{
-			bAlreadyExists        = true;
-			activeEffect.m_fTimer = activeEffect.m_fMaxTime;
+			EffectThreads::StopThread(activeEffect.m_ullThreadId);
+			activeEffect.m_bIsStopping = true;
+
+			if (effectData.TimedType != EEffectTimedType::Unk && effectData.TimedType != EEffectTimedType::NotTimed)
+			{
+				bAlreadyExists        = true;
+				activeEffect.m_fTimer = activeEffect.m_fMaxTime;
+			}
 
 			break;
 		}
@@ -409,13 +468,10 @@ void EffectDispatcher::DispatchEffect(const EffectIdentifier &effectIdentifier, 
 		if (bFound)
 		{
 			EffectThreads::StopThread(activeEffect.m_ullThreadId);
+			activeEffect.m_bIsStopping = true;
+		}
 
-			it = m_rgActiveEffects.erase(it);
-		}
-		else
-		{
-			it++;
-		}
+		it++;
 	}
 
 	if (!bAlreadyExists)
@@ -437,9 +493,8 @@ void EffectDispatcher::DispatchEffect(const EffectIdentifier &effectIdentifier, 
 			if (!MetaModifiers::m_bHideChaosUI)
 			{
 				// Play global sound (if one exists)
-				// Workaround: Force no global sound for "Fake Crash" and "Fake Death"
-				if (effectIdentifier.GetEffectId() != "misc_fakecrash"
-				    && effectIdentifier.GetEffectId() != "player_fakedeath")
+				// HACK: Force no global sound for "Fake Crash"
+				if (effectIdentifier.GetEffectId() != "misc_fakecrash")
 				{
 					Mp3Manager::PlayChaosSoundFile("global_effectdispatch");
 				}
@@ -466,7 +521,7 @@ void EffectDispatcher::DispatchEffect(const EffectIdentifier &effectIdentifier, 
 			                               effectTime);
 
 			// There might be a reason to include meta effects in the future, for now we will just exclude them
-			if (bAddToLog && !effectData.IsMeta())
+			if (bAddToLog && !effectData.IsMeta() && !effectData.IsTemporary() && !effectData.IsUtility())
 			{
 				if (m_rgDispatchedEffectsLog.size() >= 100)
 				{
@@ -489,7 +544,7 @@ void EffectDispatcher::DispatchRandomEffect(const char *szSuffix)
 	std::unordered_map<EffectIdentifier, EffectData, EffectsIdentifierHasher> choosableEffects;
 	for (const auto &[effectIdentifier, effectData] : g_dictEnabledEffects)
 	{
-		if (effectData.TimedType != EEffectTimedType::Permanent && !effectData.IsMeta() && !effectData.IsUtility())
+		if (!effectData.IsMeta() && !effectData.IsUtility() && !effectData.IsHidden())
 		{
 			choosableEffects.emplace(effectIdentifier, effectData);
 		}
@@ -524,9 +579,22 @@ void EffectDispatcher::DispatchRandomEffect(const char *szSuffix)
 	}
 }
 
+void EffectDispatcher::ClearEffect(const EffectIdentifier &effectId)
+{
+	auto result = std::find_if(m_rgActiveEffects.begin(), m_rgActiveEffects.end(),
+	                           [effectId](auto &activeEffect) { return activeEffect.m_EffectIdentifier == effectId; });
+	if (result == m_rgActiveEffects.end())
+	{
+		return;
+	}
+
+	EffectThreads::StopThreadImmediately(result->m_ullThreadId);
+	m_rgActiveEffects.erase(result);
+}
+
 void EffectDispatcher::ClearEffects(bool bIncludePermanent)
 {
-	EffectThreads::StopThreads();
+	EffectThreads::StopThreadsImmediately();
 
 	if (bIncludePermanent)
 	{
@@ -541,13 +609,12 @@ void EffectDispatcher::ClearActiveEffects(const EffectIdentifier &exclude)
 {
 	for (auto it = m_rgActiveEffects.begin(); it != m_rgActiveEffects.end();)
 	{
-		const ActiveEffect &effect = *it;
+		ActiveEffect &effect = *it;
 
 		if (effect.m_EffectIdentifier != exclude)
 		{
 			EffectThreads::StopThread(effect.m_ullThreadId);
-
-			it = m_rgActiveEffects.erase(it);
+			effect.m_bIsStopping = true;
 		}
 		else
 		{
@@ -560,13 +627,12 @@ void EffectDispatcher::ClearMostRecentEffect()
 {
 	if (!m_rgActiveEffects.empty())
 	{
-		const ActiveEffect &mostRecentEffect = m_rgActiveEffects[m_rgActiveEffects.size() - 1];
+		ActiveEffect &mostRecentEffect = m_rgActiveEffects[m_rgActiveEffects.size() - 1];
 
 		if (mostRecentEffect.m_fTimer > 0)
 		{
 			EffectThreads::StopThread(mostRecentEffect.m_ullThreadId);
-
-			m_rgActiveEffects.erase(m_rgActiveEffects.end() - 1);
+			mostRecentEffect.m_bIsStopping = true;
 		}
 	}
 }

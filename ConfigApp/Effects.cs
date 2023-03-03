@@ -393,6 +393,7 @@ namespace ConfigApp
             { "screen_invertedcolors", new EffectInfo("Inverted Colors", EffectCategory.Screen, true) },
             { "screen_fourthdimension", new EffectInfo("Fourth Dimension", EffectCategory.Screen, true, true) },
             { "screen_rgbland", new EffectInfo("RGB Land", EffectCategory.Screen, true) },
+            { "peds_give_props", new EffectInfo("Give Everyone A Random Prop", EffectCategory.Peds) },
             { "screen_textureless", new EffectInfo("Textureless", EffectCategory.Screen, true) },
             { "screen_mirrored", new EffectInfo("Mirrored Screen", EffectCategory.Screen, true) },
             { "screen_foldedscreen", new EffectInfo("Folded Screen", EffectCategory.Screen, true) },
@@ -402,9 +403,11 @@ namespace ConfigApp
             { "screen_colorfulworld", new EffectInfo("Colorful World", EffectCategory.Screen, true) },
             { "screen_arc", new EffectInfo("Arced Screen", EffectCategory.Screen, true, true) },
             { "world_blackhole", new EffectInfo("Black Hole", EffectCategory.Misc, true, true) },
+            { "misc_nowaypoint", new EffectInfo("Remove Waypoint", EffectCategory.Misc) },
+            { "player_afk", new EffectInfo("AFK", EffectCategory.Player, true, true) },
             { "misc_solid_props", new EffectInfo("Solid Props", EffectCategory.Misc, true) },
             { "peds_smoketrails", new EffectInfo("Smoke Trails", EffectCategory.Peds, true) },
-            { "misc_randomgravity", new EffectInfo("Random Gravity", EffectCategory.Misc, true) },
+            { "misc_randomgravity", new EffectInfo("Random Gravity", EffectCategory.Misc, true, true) },
             { "vehs_disassemble", new EffectInfo("Disassemble Current Vehicle", EffectCategory.Vehicle) },
             { "vehs_detach_wheel", new EffectInfo("Detach Random Wheel", EffectCategory.Vehicle) },
             { "screen_maximap", new EffectInfo("Maximap", EffectCategory.Misc, true) },
@@ -422,7 +425,10 @@ namespace ConfigApp
             { "peds_reflectivedamage", new EffectInfo("Friendly Fire", EffectCategory.Peds, true, true) },
             { "peds_toast", new EffectInfo("You're Toast", EffectCategory.Peds, true) },
             { "tp_fakex2", new EffectInfo("Fake Fake Teleport", EffectCategory.Player) },
-            { "time_local_time", new EffectInfo("Local Time", EffectCategory.Time) },
+            { "time_local_time", new EffectInfo("Set Time To System Time", EffectCategory.Time) },
+            { "peds_not_menendez", new EffectInfo("Not Menendez!", EffectCategory.Peds, true) },
+            { "misc_go_to_jail", new EffectInfo("Bad Boys", EffectCategory.Misc) },
+            { "misc_muffled_audio", new EffectInfo("Muffled Audio", EffectCategory.Misc, true) },
         };
     }
 }

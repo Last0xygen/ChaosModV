@@ -14,8 +14,6 @@
 #include <string_view>
 #include <vector>
 
-#define _NODISCARD [[nodiscard]]
-
 using DWORD64 = unsigned long long;
 using WORD    = unsigned short;
 using BYTE    = unsigned char;
@@ -28,23 +26,22 @@ class EffectDispatcher : public Component
 	struct ActiveEffect
 	{
 		EffectIdentifier m_EffectIdentifier;
-		RegisteredEffect *m_pRegisteredEffect;
 
 		DWORD64 m_ullThreadId = 0;
 
 		std::string m_szName;
 		std::string m_szFakeName;
 
-		float m_fTimer   = 0.f;
-		float m_fMaxTime = 0.f;
+		float m_fTimer     = 0.f;
+		float m_fMaxTime   = 0.f;
 
-		bool m_bHideText = true;
+		bool m_bHideText   = true;
+		bool m_bIsStopping = false;
 
 		ActiveEffect(const EffectIdentifier &effectIdentifier, RegisteredEffect *pRegisteredEffect,
 		             const std::string &szName, const std::string &szFakeName, float fTimer)
 		{
 			m_EffectIdentifier          = effectIdentifier;
-			m_pRegisteredEffect         = pRegisteredEffect;
 			m_szName                    = szName;
 			m_szFakeName                = szFakeName;
 			m_fTimer                    = fTimer;
@@ -53,7 +50,7 @@ class EffectDispatcher : public Component
 			EEffectTimedType eTimedType = g_dictEnabledEffects.at(effectIdentifier).TimedType;
 
 			m_ullThreadId               = EffectThreads::CreateThread(
-			                  pRegisteredEffect, eTimedType != EEffectTimedType::Unk && eTimedType != EEffectTimedType::NotTimed);
+                pRegisteredEffect, eTimedType != EEffectTimedType::Unk && eTimedType != EEffectTimedType::NotTimed);
 		}
 	};
 
@@ -86,8 +83,6 @@ class EffectDispatcher : public Component
 
 	bool m_bEnableNormalEffectDispatch = true;
 
-	DWORD64 m_ullTimer                 = 0;
-
 	bool m_bMetaEffectsEnabled         = true;
 	float m_fMetaEffectTimerPercentage = 0.f;
 
@@ -95,6 +90,8 @@ class EffectDispatcher : public Component
 	ETwitchOverlayMode m_eTwitchOverlayMode;
 
   public:
+	DWORD64 m_ullTimer              = 0;
+
 	bool m_bPauseTimer              = false;
 
 	bool m_bDispatchEffectsOnTimer  = true;
@@ -107,9 +104,6 @@ class EffectDispatcher : public Component
 	virtual ~EffectDispatcher() override;
 
   private:
-	void UpdateTimer(int iDeltaTime);
-	void UpdateEffects(int iDeltaTime);
-	void UpdateMetaEffects(int iDeltaTime);
 	float GetEffectTopSpace();
 
   public:
@@ -119,14 +113,19 @@ class EffectDispatcher : public Component
 	void DrawTimerBar();
 	void DrawEffectTexts();
 
-	_NODISCARD bool ShouldDispatchEffectNow() const;
+	bool ShouldDispatchEffectNow() const;
 
-	_NODISCARD int GetRemainingTimerTime() const;
+	int GetRemainingTimerTime() const;
 
 	void DispatchEffect(const EffectIdentifier &effectIdentifier, const char *szSuffix = nullptr,
 	                    bool bAddToLog = true);
 	void DispatchRandomEffect(const char *szSuffix = nullptr);
 
+	void UpdateTimer(int iDeltaTime);
+	void UpdateEffects(int iDeltaTime);
+	void UpdateMetaEffects(int iDeltaTime);
+
+	void ClearEffect(const EffectIdentifier &effectId);
 	void ClearEffects(bool bIncludePermanent = true);
 	void ClearActiveEffects(const EffectIdentifier &exclude = EffectIdentifier());
 	void ClearMostRecentEffect();

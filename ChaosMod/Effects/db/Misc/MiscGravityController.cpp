@@ -80,7 +80,7 @@ REGISTER_EFFECT(nullptr, OnStop, OnTickInsane, EffectInfo
 
 static void OnStartInvert()
 {
-	GIVE_WEAPON_TO_PED(PLAYER_PED_ID(), GET_HASH_KEY("WEAPON_PARACHUTE"), 9999, true, true);
+	GIVE_WEAPON_TO_PED(PLAYER_PED_ID(), "WEAPON_PARACHUTE"_hash, 9999, true, true);
 }
 
 static void OnTickInvert()
@@ -177,7 +177,8 @@ static void OnTickRandom()
 	{
 		lastTick = curTick;
 
-		randomGravityForce = Vector3(g_Random.GetRandomFloat(-1, 1), g_Random.GetRandomFloat(-1, 1), g_Random.GetRandomFloat(-1, 1));
+		randomGravityForce =
+		    Vector3(g_Random.GetRandomFloat(-1, 1), g_Random.GetRandomFloat(-1, 1), g_Random.GetRandomFloat(-1, 1));
 		randomGravityForce = randomGravityForce / randomGravityForce.Length(); // Normalize the direction
 		randomGravityForce = randomGravityForce * 0.5f;
 	}
@@ -201,20 +202,23 @@ static void OnTickRandom()
 
 	for (auto veh : GetAllVehs())
 	{
-		Memory::ApplyForceToEntityCenterOfMass(veh, 1, randomGravityForce.x, randomGravityForce.y,
-		                                       randomGravityForce.z, false, false, true, false);
+		Memory::ApplyForceToEntityCenterOfMass(veh, 1, randomGravityForce.x, randomGravityForce.y, randomGravityForce.z,
+		                                       false, false, true, false);
 	}
 }
 
-// clang-fromat off
+// clang-format off
 REGISTER_EFFECT(nullptr, OnStop, OnTickRandom, EffectInfo
 	{
 		.Name = "Random Gravity",
 		.Id = "misc_randomgravity",
 		.IsTimed = true,
-        	.EffectCategory  = EEffectCategory::Gravity
+		.IsShortDuration = true,
+		.EffectCategory  = EEffectCategory::Gravity
 	}
 );
+
+// clang-fromat on
 
 static void OnTickChanging()
 {

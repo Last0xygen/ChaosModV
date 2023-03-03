@@ -1,16 +1,6 @@
 #include <stdafx.h>
 
-static std::map<Ped, int> mappedPeds; 
-
-static void ReplaceMapValue(Ped key, int value)
-{
-	std::map<Ped, int>::iterator itr;
-
-	itr = mappedPeds.find(key);
-
-	if (itr != mappedPeds.end())
-		itr->second = value;
-}
+static std::unordered_map<Ped, int> mappedPeds;
 
 static void OnStop()
 {
@@ -28,11 +18,14 @@ static void OnTick()
 		}
 	}
 
-	for (auto &[ped, health] : mappedPeds)
+	for (auto it = mappedPeds.begin(); it != mappedPeds.end();)
 	{
+		auto ped     = it->first;
+		auto &health = it->second;
+
 		if (!DOES_ENTITY_EXIST(ped))
 		{
-			mappedPeds.erase(ped);
+			it = mappedPeds.erase(it);
 			continue;
 		}
 
@@ -44,12 +37,13 @@ static void OnTick()
 				{
 					int damage = health - GET_ENTITY_HEALTH(ped);
 
-					if (damage <= 0) break;
+					if (damage <= 0)
+						break;
 
 					APPLY_DAMAGE_TO_PED(attackerPed, damage, false, false);
 					SET_ENTITY_HEALTH(ped, GET_ENTITY_HEALTH(ped), 0);
 
-					ReplaceMapValue(ped, GET_ENTITY_HEALTH(ped));
+					health = GET_ENTITY_HEALTH(ped);
 
 					break;
 				}
@@ -65,13 +59,14 @@ static void OnTick()
 				{
 					Ped attackerPed = GET_PED_IN_VEHICLE_SEAT(attackerVehicle, -1, false);
 					int damage      = health - GET_ENTITY_HEALTH(ped);
-					
-					if (damage <= 0) break;
+
+					if (damage <= 0)
+						break;
 
 					APPLY_DAMAGE_TO_PED(attackerPed, damage, false, false);
 					SET_ENTITY_HEALTH(ped, GET_ENTITY_HEALTH(ped), 0);
 
-					ReplaceMapValue(ped, GET_ENTITY_HEALTH(ped));
+					health = GET_ENTITY_HEALTH(ped);
 
 					break;
 				}
@@ -81,14 +76,16 @@ static void OnTick()
 		}
 		else
 		{
-			ReplaceMapValue(ped, GET_ENTITY_HEALTH(ped));
+			health = GET_ENTITY_HEALTH(ped);
 			CLEAR_ENTITY_LAST_DAMAGE_ENTITY(ped);
 		}
 
 		if (IS_ENTITY_DEAD(ped, false))
 		{
-			mappedPeds.erase(ped);
+			it = mappedPeds.erase(it);
 		}
+
+		it++;
 	}
 }
 

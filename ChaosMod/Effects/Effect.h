@@ -6,10 +6,8 @@
 #include "Effects/EffectIdentifier.h"
 #include "Effects/EffectsInfo.h"
 
-#include <string>
 #include <algorithm>
-
-#define _NODISCARD [[nodiscard]]
+#include <string>
 
 #define _EFFECT_CONCAT(a, b) a##b
 #define EFFECT_CONCAT(a, b) _EFFECT_CONCAT(a, b)
@@ -62,7 +60,7 @@ struct RegisteredEffect
 
 			if (m_EffectIdentifier.IsScript())
 			{
-				LuaScripts::Execute(m_EffectIdentifier.GetEffectId(), "OnStart");
+				LuaScripts::Execute(m_EffectIdentifier.GetEffectId(), LuaScripts::ExecuteFuncType::Start);
 			}
 			else if (m_pOnStart)
 			{
@@ -79,7 +77,7 @@ struct RegisteredEffect
 
 			if (m_EffectIdentifier.IsScript())
 			{
-				LuaScripts::Execute(m_EffectIdentifier.GetEffectId(), "OnStop");
+				LuaScripts::Execute(m_EffectIdentifier.GetEffectId(), LuaScripts::ExecuteFuncType::Stop);
 			}
 			else if (m_pOnStop)
 			{
@@ -94,7 +92,7 @@ struct RegisteredEffect
 		{
 			if (m_EffectIdentifier.IsScript())
 			{
-				LuaScripts::Execute(m_EffectIdentifier.GetEffectId(), "OnTick");
+				LuaScripts::Execute(m_EffectIdentifier.GetEffectId(), LuaScripts::ExecuteFuncType::Tick);
 			}
 			else if (m_pOnTick)
 			{
@@ -103,12 +101,12 @@ struct RegisteredEffect
 		}
 	}
 
-	_NODISCARD inline bool IsRunning() const
+	inline bool IsRunning() const
 	{
 		return m_bIsRunning;
 	}
 
-	_NODISCARD inline bool IsScript() const
+	inline bool IsScript() const
 	{
 		return m_EffectIdentifier.IsScript();
 	}
@@ -116,7 +114,7 @@ struct RegisteredEffect
 
 inline std::vector<RegisteredEffect> g_RegisteredEffects;
 
-_NODISCARD inline RegisteredEffect *GetRegisteredEffect(const EffectIdentifier &effectIdentifier)
+inline RegisteredEffect *GetRegisteredEffect(const EffectIdentifier &effectIdentifier)
 {
 	const auto &result = std::find(g_RegisteredEffects.begin(), g_RegisteredEffects.end(), effectIdentifier);
 
@@ -151,7 +149,7 @@ class RegisterEffect
 		g_dictEffectsMap[effectInfo.Id] = std::move(effectInfo);
 	}
 
-	RegisterEffect(const RegisterEffect &) = delete;
+	RegisterEffect(const RegisterEffect &)            = delete;
 
 	RegisterEffect &operator=(const RegisterEffect &) = delete;
 };

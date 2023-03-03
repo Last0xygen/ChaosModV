@@ -31,7 +31,7 @@ static bool ms_bHaveLateHooksRan            = false;
 static bool ms_bAntiSoftlockShortcutEnabled = false;
 static bool ms_bRunAntiSoftlock             = false;
 
-_NODISCARD static std::array<BYTE, 3> ParseConfigColorString(const std::string &szColorText)
+static std::array<BYTE, 3> ParseConfigColorString(const std::string &szColorText)
 {
 	// Format: #ARGB
 	std::array<BYTE, 3> rgColors;
@@ -78,10 +78,10 @@ static void Init()
 	// We're doing it here as the build number isn't available when the mod is attached to the game process
 	static auto printedGameBuild = []()
 	{
-		const auto &gameBuild = Memory::GetGameBuild();
+		auto gameBuild = Memory::GetGameBuild();
 		if (gameBuild.empty())
 		{
-			return false;
+			gameBuild = "Unknown";
 		}
 
 		LOG("Game Build: " << gameBuild);
