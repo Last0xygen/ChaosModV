@@ -1,6 +1,6 @@
 #include <stdafx.h>
 
-#include "Util/Xinput.h"
+#include "Util/XInput.h"
 
 static Vector3 ms_BlackHolePos;
 static float ms_fCurRadius;
